@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Moodle Plus</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="HomeScreen">Home</string>
+    <string name="options">Options</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+
+
+    <string name="name">Hi John</string>
+    <string name="profile">Profile</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="title_activity_courses">Courses</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string name="home_frag">Home</string>
+    <string name="frag1">Frag 1</string>
+    <string name="frag2">Frag 2</string>
+    <string name="frag3">Frag 3</string>
+    <string name="frag4">Frag 4</string>
+    <string name="opendrawer">Open</string>
+    <string name="closedrawer">Close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginScreen"
+    android:background="#FF6A00">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/moodel_logo"
+        android:background="@drawable/logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Username"
+        android:id="@+id/textView_Username"
+        android:layout_below="@+id/moodel_logo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#000000" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText_Username"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/textView_Username"
+        android:layout_alignLeft="@id/textView_Username"
+        android:layout_alignStart="@id/textView_Username"
+        android:layout_marginRight="20dp"
+        android:password="false"
+        android:textColor="#000000" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Password"
+        android:id="@+id/textView_Password"
+        android:layout_below="@+id/editText_Username"
+        android:layout_alignLeft="@id/editText_Username"
+        android:layout_alignStart="@id/editText_Username"
+        android:paddingTop="10dp"
+        android:textColor="#000000" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText_Password"
+        android:paddingLeft="10dp"
+        android:password="true"
+        android:layout_below="@+id/textView_Password"
+        android:layout_alignLeft="@+id/editText_Username"
+        android:layout_alignStart="@+id/editText_Username"
+        android:layout_alignRight="@id/editText_Username"
+        android:layout_alignEnd="@id/editText_Username"
+        android:textColor="#000000" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember Password"
+        android:id="@+id/checkBox_password"
+        android:layout_below="@+id/editText_Password"
+        android:layout_alignLeft="@+id/editText_Password"
+        android:layout_alignStart="@+id/editText_Password"
+        android:textColor="#000000"
+        android:checked="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_button"
+        android:layout_below="@+id/checkBox_password"
+        android:layout_centerHorizontal="true"
+        android:background="#b23535"
+        android:textColor="#FFFFFF"
+        android:text="Login"
+        android:textSize="20dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_marginTop="20dp"/>
+
+
+</RelativeLayout>
