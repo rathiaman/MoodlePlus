@@ -34,9 +34,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
+        <!--<activity
             android:name=".Courses"
-            android:label="@string/title_activity_courses"
+            android:label="@string/courses"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="aau.corp.android.app.Courses" />
@@ -44,7 +44,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
+        </activity>-->
+        <activity android:name=".Courses"
+            android:theme="@style/AppTheme"
+            android:label="@string/courses">
+            <intent-filter>
+                <action android:name="aau.corp.android.app.Courses"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+            </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

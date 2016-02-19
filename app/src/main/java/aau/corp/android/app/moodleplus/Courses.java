@@ -34,7 +34,7 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses);
+        setContentView(R.layout.courses);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         listview1 = (ListView) findViewById(R.id.drawerList);

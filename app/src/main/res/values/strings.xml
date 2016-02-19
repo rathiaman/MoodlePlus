@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Moodle Plus</string>
     <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="courses">Courses</string>
     <string name="HomeScreen">Home</string>
     <string name="options">Options</string>
     <string name="settings">Settings</string>
