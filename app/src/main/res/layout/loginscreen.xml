@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText_Username"
+        android:id="@+id/edit_text_username"
         android:layout_centerVertical="true"
         android:paddingLeft="10dp"
         android:layout_below="@+id/textView_Username"
@@ -49,9 +49,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Password"
         android:id="@+id/textView_Password"
-        android:layout_below="@+id/editText_Username"
-        android:layout_alignLeft="@id/editText_Username"
-        android:layout_alignStart="@id/editText_Username"
+        android:layout_below="@+id/edit_text_username"
+        android:layout_alignLeft="@id/edit_text_username"
+        android:layout_alignStart="@id/edit_text_username"
         android:paddingTop="10dp"
         android:textColor="#000000" />
 
@@ -60,14 +60,14 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText_Password"
+        android:id="@+id/edit_text_password"
         android:paddingLeft="10dp"
         android:password="true"
         android:layout_below="@+id/textView_Password"
-        android:layout_alignLeft="@+id/editText_Username"
-        android:layout_alignStart="@+id/editText_Username"
-        android:layout_alignRight="@id/editText_Username"
-        android:layout_alignEnd="@id/editText_Username"
+        android:layout_alignLeft="@+id/edit_text_username"
+        android:layout_alignStart="@+id/edit_text_username"
+        android:layout_alignRight="@id/edit_text_username"
+        android:layout_alignEnd="@id/edit_text_username"
         android:textColor="#000000" />
 
     <CheckBox
@@ -75,9 +75,9 @@
         android:layout_height="wrap_content"
         android:text="Remember Password"
         android:id="@+id/checkBox_password"
-        android:layout_below="@+id/editText_Password"
-        android:layout_alignLeft="@+id/editText_Password"
-        android:layout_alignStart="@+id/editText_Password"
+        android:layout_below="@+id/edit_text_password"
+        android:layout_alignLeft="@+id/edit_text_password"
+        android:layout_alignStart="@+id/edit_text_password"
         android:textColor="#000000"
         android:checked="false" />
 
