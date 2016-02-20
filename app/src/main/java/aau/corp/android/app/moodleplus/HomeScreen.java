@@ -21,11 +21,20 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+
+// This is the home screen when you are logged in correctly
+// This is screen displays your notifications, assignments, grades in various subjects as well as your courses
+
+// to show your courses, a dropdown list has been enabled which on click opens and show your registered courses
+// Notifications, grades and assignments takes you to the new activity of the respective options
 
 public class HomeScreen extends AppCompatActivity {
     public Button courses;
 
+
+    // This creates a list for the courses and list opens up if you tap on it
     HashMap<String, List<String>> my_courses;
     List<String> courses_list;
     ExpandableListView my_course_list;
@@ -56,9 +65,11 @@ public class HomeScreen extends AppCompatActivity {
         courses_list = new ArrayList<String>(my_courses.keySet());
         adapter_list = new courseAdapter(this, my_courses, courses_list);
         my_course_list.setAdapter(adapter_list);
-        onButtonClickListener();
+      //  onButtonClickListener();
     }
 
+
+    // This function is for the three dots button where a small menu open up which displays several items like your name, entry number, profile, signout optons
 
     private void getOverflowMenu() {
 
@@ -76,6 +87,7 @@ public class HomeScreen extends AppCompatActivity {
 
 
 
+/*
     public void onButtonClickListener() {
         courses = (Button) findViewById(R.id.courses);
         courses.setOnClickListener(new View.OnClickListener() {
@@ -86,9 +98,11 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
     }
+*/
 
 
 
+    // This functions inflate the 3 dot menu button with items present in the menu file
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

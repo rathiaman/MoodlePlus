@@ -36,12 +36,12 @@ public class LoginScreen extends AppCompatActivity {
         onButtonClickListener();
        /* editText_Username = (EditText) findViewById(R.id.editText_Username);
         editText_Password = (EditText) findViewById(R.id.editText_Password);
-
-
 */
     }
 
-
+    // function for back button
+    // On back press, a toast message is displayed to press back button again
+    // If you press again the back button within time, you end the application
     private boolean PressTwice = false;
     @Override
     public void onBackPressed(){
@@ -67,25 +67,27 @@ public class LoginScreen extends AppCompatActivity {
     }
 
 
+    // This is the Button Click Listener for the login button
+    // On clicking the login button, a dialogue box is created which asks for confirmaton
+    // If you press No, you are taken back to login screen with respeective details entered
+    // If you press yes, server request in sent and if correct credentials are entered, ypu are correctly logged in to your  home screen
     public void onButtonClickListener() {
         login_button = (Button) findViewById(R.id.login_button);
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                // calls the alert dialogue box
                 AlertDialog.Builder submit_alert = new AlertDialog.Builder(LoginScreen.this);
                 submit_alert.setMessage("Confirm your details !!!").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                                        /*Intent registration_result_screen = new Intent("com.thenewstark.application5.Registration_result");
-                                        // Intent inte = new Intent(this, Home.class);
-                                        startActivity(registration_result_screen);*/
-
+                        // calls the function which send the request to the server
                         sendRequest();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which) {    // If no is pressed, you are taken back to the login screen
                         dialog.cancel();
                     }
                 });
@@ -110,7 +112,8 @@ public class LoginScreen extends AppCompatActivity {
         //flag for sending to the home page
         int flag = 0;
 
-        String url = "http://192.168.43.226:8000/default/login.json?userid=" + username + "&password=" + password;
+        String url="http://10.192.18.219:8000/default/login.json?userid=vinay&password=vinay";
+        //   String url = "http://10.192.7.98:8000/default/login.json?userid=" + username + "&password=" + password;
         //String url = "http://headers.jsontest.com/";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
@@ -131,8 +134,8 @@ public class LoginScreen extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginScreen.this, "You have an error in request", Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(LoginScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginScreen.this, "You have an error in request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

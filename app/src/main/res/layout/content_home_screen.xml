@@ -13,7 +13,9 @@
     tools:showIn="@layout/activity_home_screen"
     android:background="#FF6A00">
 
-    <Button
+
+
+   <!-- <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="My Courses"
@@ -22,46 +24,50 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="#b23535"/>
+-->
+
 
     <ExpandableListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/my_course_expan_list"
-        android:layout_below="@+id/courses"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
 
+
+
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Grades"
         android:id="@+id/grades"
-        android:layout_below="@+id/my_course_expan_list"
-        android:layout_centerHorizontal="true"
+       android:layout_below="@+id/my_course_expan_list"
         android:layout_marginTop="50dp"
         android:background="#b23535"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Assignments"
         android:id="@+id/assignments"
         android:layout_below="@+id/grades"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="@+id/grades"
+        android:layout_alignParentStart="@+id/grades"
         android:layout_marginTop="50dp"
         android:background="#b23535" />
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Notifications"
         android:id="@+id/notifications"
         android:layout_below="@+id/assignments"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="@+id/assignments"
+        android:layout_alignParentStart="@+id/assignments"
         android:layout_marginTop="50dp"
         android:background="#b23535"
-        android:textSize="20dp" />
+        />
 
 
 </RelativeLayout>
