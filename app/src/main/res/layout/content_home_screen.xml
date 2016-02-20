@@ -23,12 +23,20 @@
         android:layout_marginTop="50dp"
         android:background="#b23535"/>
 
+    <ExpandableListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_course_expan_list"
+        android:layout_below="@+id/courses"
+        android:layout_centerHorizontal="true" />
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Grades"
         android:id="@+id/grades"
-        android:layout_below="@+id/courses"
+        android:layout_below="@+id/my_course_expan_list"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="#b23535"/>
@@ -52,5 +60,8 @@
         android:layout_below="@+id/assignments"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:background="#b23535"/>
+        android:background="#b23535"
+        android:textSize="20dp" />
+
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package aau.corp.android.app.moodleplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,15 +8,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.HashMap;
+import java.util.List;
 
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 
 public class HomeScreen extends AppCompatActivity {
     public Button courses;
+
+    HashMap<String, List<String>> my_courses;
+    List<String> courses_list;
+    ExpandableListView my_course_list;
+    courseAdapter adapter_list;
 
 
     @Override
@@ -37,8 +51,14 @@ public class HomeScreen extends AppCompatActivity {
             // Ignore
         }
 
+        my_course_list = (ExpandableListView) findViewById(R.id.my_course_expan_list);
+        my_courses = Courses_data.getInfo();
+        courses_list = new ArrayList<String>(my_courses.keySet());
+        adapter_list = new courseAdapter(this, my_courses, courses_list);
+        my_course_list.setAdapter(adapter_list);
         onButtonClickListener();
     }
+
 
     private void getOverflowMenu() {
 
@@ -55,14 +75,14 @@ public class HomeScreen extends AppCompatActivity {
     }
 
 
+
     public void onButtonClickListener() {
         courses = (Button) findViewById(R.id.courses);
         courses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   Intent i = new Intent("aau.corp.android.app.moodleplus.Courses");
-                Intent j = new Intent(HomeScreen.this, Courses.class);
-                startActivity(j);
+                  Intent j = new Intent(HomeScreen.this, Courses.class);
+                  startActivity(j);
             }
         });
     }
@@ -76,3 +96,4 @@ public class HomeScreen extends AppCompatActivity {
         return true;
     }
 }
+
