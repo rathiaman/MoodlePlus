@@ -85,6 +85,11 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
+    public void grade_button(){
+        Intent grade_page = new Intent(HomeScreen.this, GradeScreen.class);
+        startActivity(grade_page);
+    }
+
 
 
 /*

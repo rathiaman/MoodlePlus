@@ -44,7 +44,8 @@
         android:id="@+id/grades"
        android:layout_below="@+id/my_course_expan_list"
         android:layout_marginTop="50dp"
-        android:background="#b23535"/>
+        android:background="#b23535"
+        android:onClick="grade_button()" />
 
     <Button
         android:layout_width="180dp"
