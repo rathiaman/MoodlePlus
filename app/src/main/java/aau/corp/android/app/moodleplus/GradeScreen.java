@@ -44,8 +44,6 @@ public class GradeScreen extends AppCompatActivity {
         //setSupportActionBar(toolbar);
 
         send_data_request();
-        create_all_data_array();
-        create_grade_table();
     }
 
     public void send_data_request(){
@@ -59,11 +57,13 @@ public class GradeScreen extends AppCompatActivity {
                         Log.e("hello1", response);
                         try {
                             Log.e("qwerty", response.toString());
-                            mainObject = new JSONObject(response);
+                            create_all_data_array(response);
+                            //Toast.makeText(GradeScreen.this, response, Toast.LENGTH_SHORT).show();
                         }
-                        catch(JSONException e){
+                        catch(Exception e){
                             Log.e("u1" , e.toString());
                             e.printStackTrace();
+                            Toast.makeText(GradeScreen.this, e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -81,18 +81,30 @@ public class GradeScreen extends AppCompatActivity {
     }
 
 
-    public void create_all_data_array(){
+    public void create_all_data_array(String response){
+
+        JSONObject mainObject ;
+
         try{
+            mainObject = new JSONObject(response);
+            //Toast.makeText(GradeScreen.this, mainObject.toString(), Toast.LENGTH_SHORT).show();
+
             JSONArray json_array_course_request =   mainObject.getJSONArray("courses");
             JSONArray json_array_grade_request =    mainObject.getJSONArray("grades");
+            //declaring the size of the array
+            code_array = new String[json_array_course_request.length()];
+            credits_array = new Integer[json_array_course_request.length()];
+            ltp_array = new String[json_array_course_request.length()];
+            item_array = new String[json_array_course_request.length()];
+            marks_array =  new Integer[json_array_course_request.length()];
 
-            for (int i = 0; i < json_array_course_request .length(); i++) {
+            for (int i = 0; i < json_array_course_request.length(); i++) {
                 JSONObject childJSONObject = json_array_course_request.getJSONObject(i);
-                code_array[i] = 	childJSONObject.getString("code");
-                credits_array[i] = 	childJSONObject.getInt("credits");
-                ltp_array[i] = 		childJSONObject.getString("l_t_p");
+                code_array[i] =    childJSONObject.getString("code");
+                credits_array[i] =     childJSONObject.getInt("credits");
+                ltp_array[i] =        childJSONObject.getString("l_t_p");
             }
-            for (int i = 0; i < json_array_grade_request .length(); i++) {
+            for (int i = 0; i < json_array_grade_request.length(); i++) {
                 JSONObject childJSONObject = json_array_grade_request.getJSONObject(i);
                 item_array[i] =     childJSONObject.getString("name");
                 marks_array[i] =
@@ -100,6 +112,7 @@ public class GradeScreen extends AppCompatActivity {
                                 childJSONObject.getInt("weightage");
 
             }
+            create_grade_table();
         }catch(JSONException e){
             e.printStackTrace();
         }
@@ -110,13 +123,14 @@ public class GradeScreen extends AppCompatActivity {
         TableLayout all_grade_table = (TableLayout) findViewById(R.id.all_grade_table);
 
         //running loops for creating rows
-        TableRow.LayoutParams  params1=new TableRow.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT,1.0f);
+        /*TableRow.LayoutParams  params1=new TableRow.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT,1.0f);
         TableRow.LayoutParams params2=new TableRow.LayoutParams(RadioGroup.LayoutParams.FILL_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
-
-
+*/
         for(int i =0 ; i< code_array.length ; i++) {
             //Creating new tablerows and textviews
             TableRow row    =   new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            row.setLayoutParams(lp);
             TextView code   =   new TextView(this);
             TextView credits=   new TextView(this);
             TextView item   =   new TextView(this);
@@ -126,19 +140,21 @@ public class GradeScreen extends AppCompatActivity {
             credits.setText(credits_array[i]);
             item.setText(item_array[i]);
             marks.setText(marks_array[i]);
-
+/*
             code.setLayoutParams(params1);
             credits.setLayoutParams(params1);
             item.setLayoutParams(params1);
             marks.setLayoutParams(params1);
-            //the textviews have to be added to the row created
+  */          //the textviews have to be added to the row created
             row.addView(code);
             row.addView(credits);
             row.addView(item);
             row.addView(marks);
-            row.setLayoutParams(params2);
+            //row.setLayoutParams(params2);
             all_grade_table.addView(row);}
     }
+
+
 
 
 }

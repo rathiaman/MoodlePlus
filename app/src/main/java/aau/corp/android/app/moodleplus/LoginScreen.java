@@ -1,5 +1,6 @@
 package aau.corp.android.app.moodleplus;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
@@ -108,6 +109,11 @@ public class LoginScreen extends AppCompatActivity {
 
     //function defined for sending the string request
     private void sendRequest() {
+
+        //creates aDialog box
+        final ProgressDialog messageDialog = new ProgressDialog(this);
+        messageDialog.setMessage("sending the information");
+        messageDialog.show();
 
         //obtain the string value for username and password field
         final String username = findViewById(R.id.edit_text_username).toString().trim();
