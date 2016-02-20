@@ -52,25 +52,11 @@
     <Button
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:text="Assignments"
-        android:id="@+id/assignments"
+        android:text="Notifications"
+        android:id="@+id/notifications"
         android:layout_below="@+id/to_grades"
         android:layout_alignParentLeft="@+id/to_grades"
         android:layout_alignParentStart="@+id/to_grades"
-        android:layout_marginTop="20dp"
-        android:background="#FF6A00"
-        android:textAlignment="viewStart"
-        android:layout_gravity="start"
-        android:textStyle="bold"/>
-
-    <Button
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:text="Notifications"
-        android:id="@+id/notifications"
-        android:layout_below="@+id/assignments"
-        android:layout_alignParentLeft="@+id/assignments"
-        android:layout_alignParentStart="@+id/assignments"
         android:layout_marginTop="20dp"
         android:background="#FF6A00"
         android:textAlignment="viewStart"
