@@ -24,6 +24,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+
 
 public class LoginScreen extends AppCompatActivity {
 
@@ -113,6 +116,7 @@ public class LoginScreen extends AppCompatActivity {
         int flag = 0;
 
         String url="http://10.192.18.219:8000/default/login.json?userid=vinay&password=vinay";
+       // String url="http://tapi.cse.iitd.ernet.in:1805/default/login.json?userid=" + username + "&password=" + password;
         //   String url = "http://10.192.7.98:8000/default/login.json?userid=" + username + "&password=" + password;
         //String url = "http://headers.jsontest.com/";
 
@@ -122,13 +126,15 @@ public class LoginScreen extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.e("hello1", response.toString());
                         Toast.makeText(LoginScreen.this, "request sent", Toast.LENGTH_SHORT).show();
+                        PJson(response);
+                        /*
                         int flag = PJson(response);
                         if (flag == 1) {
                             Intent i = new Intent(LoginScreen.this, HomeScreen.class);
                             startActivity(i);
                         } else {
                             Toast.makeText(LoginScreen.this, "incorrect fields", Toast.LENGTH_SHORT).show();
-                        }
+                        }*/
                     }
                 },
                 new Response.ErrorListener() {
@@ -141,20 +147,52 @@ public class LoginScreen extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
+
+        //for handling cookies
+        CookieManager manager = new CookieManager();
+        CookieHandler.setDefault(manager);
     }
 
-    private int PJson(String res) {
+    private void PJson(String res) {
+        int result = 0;
         try {
             JSONObject Object = new JSONObject(res);
             Boolean success_value = Object.getBoolean("success");
             if (!success_value)
-                return 0;
+                result = 0;
+
             else {
-                return 1;
+                result =1 ;
             }
+            if (result == 1) {
+                // Toast.makeText(MainActivity.this, myinteger, Toast.LENGTH_SHORT).show();
+                JSONObject user = Object.getJSONObject("user");
+                String first_name = user.getString("first_name");
+                String last_name = user.getString("last_name");
+                String entry_no = user.getString("entry_no");
+                String email = user.getString("email");
+                String type_ = user.getString("type_");
+
+                Intent in = new Intent(getApplicationContext(),
+                        HomeScreen.class);
+                //in.putExtra(EXTRA_MESSAGE,)
+                Bundle extras = new Bundle();
+                extras.putString("EXTRA_FIRST", first_name);
+                extras.putString("EXTRA_LAST", last_name);
+                extras.putString("EXTRA_ENTRY", entry_no);
+                extras.putString("EXTRA_EMAIL", email);
+                extras.putString("EXTRA_TYPE", type_);
+                in.putExtras(extras);
+                startActivity(in);
+
+            }
+            else{
+                Toast.makeText(LoginScreen.this, "invalid login", Toast.LENGTH_SHORT).show();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
-            return 0;
+            result = 0;
         }
     }
 

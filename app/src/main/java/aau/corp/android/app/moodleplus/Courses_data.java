@@ -22,7 +22,7 @@ public class Courses_data {
                 My_Courses.add("HUL281: Technology and Governance");
 
 
-        my_courses.put("My Courses", My_Courses);
+        my_courses.put("MY COURSES", My_Courses);
         return my_courses;
     }
 }

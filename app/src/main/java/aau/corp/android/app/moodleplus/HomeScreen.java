@@ -21,6 +21,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 
@@ -30,8 +32,11 @@ import android.widget.Toast;
 // to show your courses, a dropdown list has been enabled which on click opens and show your registered courses
 // Notifications, grades and assignments takes you to the new activity of the respective options
 
-public class HomeScreen extends AppCompatActivity {
-    public Button courses;
+public class HomeScreen extends AppCompatActivity
+     //   implements ExpandableListView.OnGroupExpandListener, ExpandableListView.OnGroupCollapseListener
+{
+
+    public Button to_grades;
 
 
     // This creates a list for the courses and list opens up if you tap on it
@@ -39,6 +44,8 @@ public class HomeScreen extends AppCompatActivity {
     List<String> courses_list;
     ExpandableListView my_course_list;
     courseAdapter adapter_list;
+
+
 
 
     @Override
@@ -65,7 +72,32 @@ public class HomeScreen extends AppCompatActivity {
         courses_list = new ArrayList<String>(my_courses.keySet());
         adapter_list = new courseAdapter(this, my_courses, courses_list);
         my_course_list.setAdapter(adapter_list);
+        onButtonClickListener_grades();
       //  onButtonClickListener();
+
+
+        my_course_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+                Intent transition = new Intent(HomeScreen.this, Courses.class);
+                startActivity(transition);
+                return false;
+            }
+        });
+
+    }
+
+
+    private void onButtonClickListener_grades() {
+        to_grades = (Button) findViewById(R.id.to_grades);
+        to_grades.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent grade_page = new Intent(HomeScreen.this, GradeScreen.class);
+                startActivity(grade_page);
+            }
+        });
     }
 
 
@@ -85,20 +117,6 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
-
-
-/*
-    public void onButtonClickListener() {
-        courses = (Button) findViewById(R.id.courses);
-        courses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                  Intent j = new Intent(HomeScreen.this, Courses.class);
-                  startActivity(j);
-            }
-        });
-    }
-*/
 
 
 
