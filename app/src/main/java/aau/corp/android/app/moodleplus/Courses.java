@@ -128,9 +128,11 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
         drawerLayout.closeDrawer(listview1);
     }
 
-    public void selectItem(int position){
-        listview1.setItemChecked(position,true);
-        setTitle(listview1.getItemAtPosition(position).toString());
+    public void selectItem(int position) {
+        listview1.setItemChecked(position, true);
+        if (position != 1) {
+            setTitle(listview1.getItemAtPosition(position).toString());
+        }
     }
 
     public void setTitle(String title){

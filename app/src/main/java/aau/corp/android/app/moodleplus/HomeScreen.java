@@ -3,6 +3,7 @@ package aau.corp.android.app.moodleplus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -114,6 +115,31 @@ public class HomeScreen extends AppCompatActivity
         ////////////////////////////////////////////////
 
 
+    }
+
+
+    private boolean PressTwice = false;
+    @Override
+    public void onBackPressed(){
+        if(PressTwice){
+
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+
+        }
+
+        PressTwice = true;
+        Toast.makeText(this, "Press BACK Button again to Exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PressTwice = false;
+            }
+        }, 2000);
     }
 
 
