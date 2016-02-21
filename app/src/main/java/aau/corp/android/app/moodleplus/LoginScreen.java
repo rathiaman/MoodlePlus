@@ -7,10 +7,15 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 
@@ -33,6 +38,8 @@ public class LoginScreen extends AppCompatActivity {
 
   //  public EditText editText_Username, editText_Password;
         public Button login_button;
+        public EditText password_text;
+        public CheckBox show_password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +48,22 @@ public class LoginScreen extends AppCompatActivity {
        /* editText_Username = (EditText) findViewById(R.id.editText_Username);
         editText_Password = (EditText) findViewById(R.id.editText_Password);
 */
+
+        show_password = (CheckBox) findViewById(R.id.show_password);
+        password_text = (EditText) findViewById(R.id.edit_text_password);
+        show_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    password_text.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else{
+                    password_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
+
+
     }
 
     // function for back button
@@ -133,20 +156,12 @@ public class LoginScreen extends AppCompatActivity {
                         Log.e("hello1", response.toString());
                         Toast.makeText(LoginScreen.this, "request sent", Toast.LENGTH_SHORT).show();
                         PJson(response);
-                        /*
-                        int flag = PJson(response);
-                        if (flag == 1) {
-                            Intent i = new Intent(LoginScreen.this, HomeScreen.class);
-                            startActivity(i);
-                        } else {
-                            Toast.makeText(LoginScreen.this, "incorrect fields", Toast.LENGTH_SHORT).show();
-                        }*/
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(LoginScreen.this, "You have an error in request", Toast.LENGTH_SHORT).show();
                         Toast.makeText(LoginScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });

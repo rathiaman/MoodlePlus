@@ -13,7 +13,6 @@
     android:background="#FF6A00"
     tools:showIn="@layout/activity_grade_screen">
 
-
     <TableLayout
         android:id="@+id/all_grade_table"
         android:layout_width="match_parent"
@@ -31,7 +30,10 @@
                 android:clickable="false"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="6dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                />
 
             <TextView
                 android:text="Credits"

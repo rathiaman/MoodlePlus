@@ -95,11 +95,22 @@
         android:textColor="#000000"
         android:checked="false" />
 
+    <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show Password"
+                android:id="@+id/show_password"
+                android:layout_below="@+id/checkBox_password"
+                android:layout_alignLeft="@+id/edit_text_password"
+                android:layout_alignStart="@+id/edit_text_password"
+                android:textColor="#000000"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/login_button"
-        android:layout_below="@+id/checkBox_password"
+        android:layout_below="@+id/show_password"
         android:layout_centerHorizontal="true"
         android:background="#b23535"
         android:textColor="#FFFFFF"
@@ -113,4 +124,6 @@
 </RelativeLayout>
 </ScrollView>
 
-    </RelativeLayout>
+
+
+</RelativeLayout>

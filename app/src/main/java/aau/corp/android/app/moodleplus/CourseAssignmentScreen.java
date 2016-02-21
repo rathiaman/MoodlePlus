@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
     String[] name_array ;
     String[] start_array ;
     String[] end_array ;
+    String course_code ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +39,14 @@ public class CourseAssignmentScreen extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        course_code = getIntent().getExtras().getString("course_code");
         send_data_request();
     }
 
 
     public void send_data_request(){
         //url for grades
-        String url="http://10.192.7.98:8000//courses/course.json/cop290/assignments";
+        String url="http://10.192.18.219:8000//courses/course.json/"+course_code+"/assignments";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -93,9 +96,9 @@ public class CourseAssignmentScreen extends AppCompatActivity {
 
             for (int i = 0; i < json_array_course_request.length(); i++) {
                 JSONObject childJSONObject = json_array_course_request.getJSONObject(i);
-                name_array[i] = 	childJSONObject.getString("name");
-                start_array[i] = 	childJSONObject.getString("created_at");
-                end_array[i] = 		childJSONObject.getString("deadline");
+                name_array[i] = childJSONObject.getString("name");
+                start_array[i] = childJSONObject.getString("created_at");
+                end_array[i] = childJSONObject.getString("deadline");
             }
             create_grade_table();
         }catch(JSONException e){
@@ -106,6 +109,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
     public void create_grade_table(){
         /* Find Tablelayout defined in main.xml */
         TableLayout course_assig_table = (TableLayout) findViewById(R.id.course_assig_table);
+        course_assig_table.setColumnShrinkable(1,true);
 
         //running loops for creating rows
         /*TableRow.LayoutParams  params1=new TableRow.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT,1.0f);
@@ -113,27 +117,71 @@ public class CourseAssignmentScreen extends AppCompatActivity {
 */
         for(int i =0 ; i< name_array.length ; i++) {
             //Creating new tablerows and textviews
-            TableRow row    =   new TableRow(this);
+            TableRow row1 = new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
-            row.setLayoutParams(lp);
-            TextView name   =   new TextView(this);
-            TextView start=   new TextView(this);
-            TextView end   =   new TextView(this);
-            //setting the text
-            name.setText(name_array[i]);
+            int leftMargin=0;
+            int topMargin=2;
+            int rightMargin=0;
+            int bottomMargin=2;
+
+            lp.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
+            TextView sno = new TextView(this);
+            TextView name = new TextView(this);
+
+            sno.setText(String.valueOf(i + 1) + ".) ");
+            name.setText(name_array[i] + " ");
+
+            //for span
+            TableRow.LayoutParams trParam = new TableRow.LayoutParams();
+            trParam.column= 1;
+            trParam.span = 2;
+
+            name.setLayoutParams(trParam);
+
+            row1.addView(sno);
+            row1.addView(name);
+
+            row1.setLayoutParams(lp);
+            course_assig_table.addView(row1);
+
+            TableRow row2 = new TableRow(this);
+            TableRow.LayoutParams lp2 = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+
+            int leftMargin2=0;
+            int topMargin2=2;
+            int rightMargin2=0;
+            int bottomMargin2=8;
+
+            lp2.setMargins(leftMargin2, topMargin2, rightMargin2, bottomMargin2);
+
+            TextView blank = new TextView(this);
+            //TextView blank1 = new TextView(this);
+            TextView start = new TextView(this);
+            TextView end = new TextView(this);
+
+            blank.setText("  ");
+            //blank1.setText("  ");
             start.setText(start_array[i]);
-            end.setText(end_array[i]);
+            end.setText(" "+end_array[i]);
+
+            //row2.addView(blank1);
+            row2.addView(blank);
+            row2.addView(start);
+            row2.addView(end);
+
+            row2.setLayoutParams(lp2);
+            course_assig_table.addView(row2);
+        }
+
 /*
             code.setLayoutParams(params1);
             credits.setLayoutParams(params1);
             item.setLayoutParams(params1);
             marks.setLayoutParams(params1);
   */          //the textviews have to be added to the row created
-            row.addView(name);
-            row.addView(start);
-            row.addView(end);
-            //row.setLayoutParams(params2);
-            course_assig_table.addView(row);}
+        //row.setLayoutParams(params2);
+
     }
 
 

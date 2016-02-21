@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -47,7 +48,7 @@ public class GradeScreen extends AppCompatActivity {
 
     public void send_data_request(){
         //url for grades
-        String url="http://10.192.7.98:8000//default/grades.json";
+        String url="http://10.192.18.219:8000/default/grades.json";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -135,10 +136,17 @@ public class GradeScreen extends AppCompatActivity {
             TextView item   =   new TextView(this);
             TextView marks  =   new TextView(this);
             //setting the text
-            code.setText(code_array[i]);
+            code.setText(code_array[i].toUpperCase());
+            code.setGravity(Gravity.CENTER);
+
             credits.setText(String.valueOf(credits_array[i]));
+            credits.setGravity(Gravity.CENTER);
+
             item.setText(item_array[i]);
+            item.setGravity(Gravity.CENTER);
+
             marks.setText(String.valueOf(marks_array[i]));
+            marks.setGravity(Gravity.CENTER);
 /*
             code.setLayoutParams(params1);
             credits.setLayoutParams(params1);

@@ -78,7 +78,7 @@
         </activity>
 
         <activity android:name=".CourseAssignmentScreen"
-            android:label="Profile"
+            android:label="Assignments"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>

@@ -13,201 +13,142 @@
     tools:showIn="@layout/activity_profile_screen"
     android:background="#FF6A00">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="First Name"
+        android:id="@+id/first_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="20dp"
+        android:textSize="25dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="First Name"
-                android:id="@+id/textView2"
-                android:layout_column="0"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="First Name Answer"
+        android:id="@+id/first_name_answer"
+        android:layout_below="@+id/first_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:textStyle="italic" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="first_name"
-                android:id="@+id/first_name"
-                android:layout_column="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
-        </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Entry No"
+        android:id="@+id/entry_no"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/last_name_answer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="20dp"
+        android:textSize="25dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Last Name"
-                android:id="@+id/textView4"
-                android:layout_column="0"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Entry No Answer"
+        android:id="@+id/entry_no_answer"
+        android:layout_below="@+id/entry_no"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:textStyle="italic"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="last_name"
-                android:id="@+id/last_name"
-                android:layout_column="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
-        </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Last Name"
+        android:id="@+id/last_name"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/first_name_answer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="20dp"
+        android:textSize="25dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Entry Number"
-                android:id="@+id/textView6"
-                android:layout_column="0"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Last Name Answer"
+        android:id="@+id/last_name_answer"
+        android:layout_below="@+id/last_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:textStyle="italic"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="entry_number"
-                android:id="@+id/entry_number"
-                android:layout_column="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
-        </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="E-Mail Address"
+        android:id="@+id/email_address"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/entry_no_answer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="20dp"
+        android:textSize="25dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="E-mail address"
-                android:id="@+id/textView8"
-                android:layout_column="0"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="E-Mail Address Answer"
+        android:id="@+id/email_address_answer"
+        android:layout_below="@+id/email_address"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:textStyle="italic"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="email"
-                android:id="@+id/email"
-                android:layout_column="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
-        </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Account Type"
+        android:id="@+id/account_type"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/email_address_answer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="20dp"
+        android:textSize="25dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Account Type"
-                android:id="@+id/textView10"
-                android:layout_column="0"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Account Type Answer"
+        android:id="@+id/account_type_answer"
+        android:layout_below="@+id/account_type"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:textStyle="italic"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="type"
-                android:id="@+id/textView11"
-                android:layout_column="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="25dp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Press To return"
-                android:id="@+id/button"
-                android:layout_column="0"
-                android:layout_span="2"
-                android:layout_marginLeft="75dp"
-                android:layout_marginRight="75dp"
-                android:textSize="20dp" />
-        </TableRow>
-    </TableLayout>
 </RelativeLayout>
