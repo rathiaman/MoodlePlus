@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import java.lang.reflect.Field;
@@ -56,7 +57,9 @@ public class HomeScreen extends AppCompatActivity
     String int_type;
     public String [] course_list_with_name ;
     public String [] course_list_codes ;
-
+    public List<String> course_list_with_name_1 = new ArrayList<>();
+    public List<String> course_list_codes_1 = new ArrayList<>();
+    public List<String> course_list_codes_2 = new ArrayList<>();
 
 
     // This creates a list for the courses and list opens up if you tap on it
@@ -75,6 +78,8 @@ public class HomeScreen extends AppCompatActivity
 
         sendRequest();
 
+        Toast.makeText(HomeScreen.this, course_list_codes_1 + " ======+++++=", Toast.LENGTH_SHORT).show();
+
         getOverflowMenu();
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
@@ -86,45 +91,26 @@ public class HomeScreen extends AppCompatActivity
         } catch (Exception ex) {
             // Ignore
         }
-
+/*
         my_course_list = (ExpandableListView) findViewById(R.id.my_course_expan_list);
       //  my_courses = Courses_data.getInfo();
 
-        ArrayList<String> dummy1 = new ArrayList<>();
-        my_courses.put("MY COURSES", dummy1);
-
-        Toast.makeText(HomeScreen.this, dummy1.get(1), Toast.LENGTH_SHORT).show();
-
         courses_list = new ArrayList<String>(my_courses.keySet());
         adapter_list = new courseAdapter(this, my_courses, courses_list);
-        my_course_list.setAdapter(adapter_list);
+        my_course_list.setAdapter(adapter_list);*/
         onButtonClickListener_grades();
       //  onButtonClickListener();
 
 
-        my_course_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
-               // int ls = my_courses.get((courses_list).get(groupPosition)).get(childPosition);
-
-                int ls = childPosition;
-
-                Intent transition = new Intent(getApplicationContext(), Courses.class);
-                transition.putExtra("Item_Number", ls);
-                startActivity(transition);
-                return false;
-            }
-        });
 
         ////////////////////////////////////////////////////////////
         //getting the values for the previous activity to be transfered to the next activity
-        first_name = getIntent().getExtras().getString("EXTRA_FIRST");
+      /*  first_name = getIntent().getExtras().getString("EXTRA_FIRST");
         last_name = getIntent().getExtras().getString("EXTRA_LAST");
         entry_number = getIntent().getExtras().getString("EXTRA_ENTRY");
         email = getIntent().getExtras().getString("EXTRA_EMAIL");
         int_type = getIntent().getExtras().getString("EXTRA_TYPE");
-
+*/
         ////////////////////////////////////////////////
 
 
@@ -199,6 +185,7 @@ public class HomeScreen extends AppCompatActivity
                     @Override
                     public void onResponse(String response) {
                         PJson(response);
+                       Toast.makeText(HomeScreen.this, "we get a response for the courses", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -216,15 +203,60 @@ public class HomeScreen extends AppCompatActivity
         try {
             JSONObject course_details = new JSONObject(response);
             JSONArray json_array_course_request =   course_details.getJSONArray("courses");
-            course_list_with_name = new String[json_array_course_request.length()+1];
-            course_list_codes = new String[json_array_course_request.length()];
-            course_list_with_name[0] = "Home";
-            for (int i = 0; i < json_array_course_request.length(); i++) {
-                JSONObject childJSONObject = json_array_course_request.getJSONObject(i);
-                course_list_codes[i] = 	childJSONObject.getString("code");
-                course_list_with_name[i+1] = 	childJSONObject.getString("code") + " : "+
-                        childJSONObject.getString("name");
+
+            //course_list_with_name_1 = new ArrayList<>();
+            //course_list_codes_1 = new ArrayList<>();
+
+            //course_list_with_name[0] = "Home";
+            course_list_codes_1.add("Home");
+            if( json_array_course_request.length()!=0){
+                course_list_with_name = new String[json_array_course_request.length()];
+                course_list_codes = new String[json_array_course_request.length()+1];
+
+                for (int i = 0; i < json_array_course_request.length(); i++) {
+                    JSONObject childJSONObject = json_array_course_request.getJSONObject(i);
+
+                    course_list_codes_1.add(childJSONObject.getString("code").toUpperCase());
+                    course_list_with_name_1.add(childJSONObject.getString("code") + " : " + childJSONObject.getString("name"));
+
+                    //course_list_codes[i+1] = 	childJSONObject.getString("code");
+                    //course_list_with_name[i] = 	childJSONObject.getString("code") + " : " + childJSONObject.getString("name");
+                }
+
+                my_courses.put("MY COURSES", course_list_with_name_1);
+                course_list_codes_2 = course_list_codes_1;
+
+                my_course_list = (ExpandableListView) findViewById(R.id.my_course_expan_list);
+                //  my_courses = Courses_data.getInfo();
+
+                courses_list = new ArrayList<String>(my_courses.keySet());
+                adapter_list = new courseAdapter(this, my_courses, courses_list);
+                my_course_list.setAdapter(adapter_list);
+
+                my_course_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+                        // int ls = my_courses.get((courses_list).get(groupPosition)).get(childPosition);
+
+                        int ls = childPosition;
+
+                        Intent transition = new Intent(getApplicationContext(), Courses.class);
+                        transition.putExtra("Item_Number", ls);
+                     //   transition.putExtra("Course_Code_List", course_list_codes_2);
+                        transition.putStringArrayListExtra("Course_Code_List", (ArrayList<String>) course_list_codes_2);
+
+                        startActivity(transition);
+                        return false;
+                    }
+                });
+
+
             }
+            else{
+                Toast.makeText(HomeScreen.this, "the array is null", Toast.LENGTH_SHORT).show();
+            }
+
         }
         catch (Exception e){
             e.printStackTrace();

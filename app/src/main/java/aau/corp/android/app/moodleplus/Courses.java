@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +27,6 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
     private android.support.v4.app.FragmentManager fragmentManager;
     private ListView listview1;
 
-    public HomeScreen homescreenobj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,9 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
 //        ArrayList<String> navArray = new ArrayList<String>();
      //   ArrayList<String> navArray = new ArrayList<String>();
      //   navArray = Courses_data.getcourselist();
-        List<String> dummy = Arrays.asList(homescreenobj.course_list_codes);
-        ArrayList<String> navArray = new ArrayList<String>(dummy);
+
+        List<String> dummy = getIntent().getStringArrayListExtra("Course_Code_List");
+        ArrayList<String> navArray = (ArrayList<String>) dummy;
 
         /*navArray.add("Home");
         navArray.add("COP290");
@@ -77,7 +78,7 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
 
         switch (i){
             case 0:
-                Intent take_to_home = new Intent(Courses.this, HomeScreen.class);
+                Intent take_to_home = new Intent(getApplicationContext(), HomeScreen.class);
                 startActivity(take_to_home);
                 break;
             case 1:

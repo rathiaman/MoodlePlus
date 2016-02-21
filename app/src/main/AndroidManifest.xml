@@ -77,6 +77,18 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".CourseAssignmentScreen"
+            android:label="Profile"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="aau.corp.app.CourseAssignmentScreen"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+
+
     </application>
 
 </manifest>

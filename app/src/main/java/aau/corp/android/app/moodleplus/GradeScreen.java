@@ -28,7 +28,6 @@ import static android.widget.RadioGroup.*;
 
 public class GradeScreen extends AppCompatActivity {
 
-    JSONObject mainObject ;
     //declaring arrays for storung the data to be displayed
     String[] code_array ;
     String[] ltp_array ;
@@ -48,7 +47,7 @@ public class GradeScreen extends AppCompatActivity {
 
     public void send_data_request(){
         //url for grades
-        String url="http://10.192.18.219:8000//default/grades.json";
+        String url="http://10.192.7.98:8000//default/grades.json";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -57,6 +56,7 @@ public class GradeScreen extends AppCompatActivity {
                         Log.e("hello1", response);
                         try {
                             Log.e("qwerty", response.toString());
+                            //mainObject = new JSONObject(response);
                             create_all_data_array(response);
                             //Toast.makeText(GradeScreen.this, response, Toast.LENGTH_SHORT).show();
                         }
@@ -80,7 +80,6 @@ public class GradeScreen extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-
     public void create_all_data_array(String response){
 
         JSONObject mainObject ;
@@ -100,9 +99,9 @@ public class GradeScreen extends AppCompatActivity {
 
             for (int i = 0; i < json_array_course_request.length(); i++) {
                 JSONObject childJSONObject = json_array_course_request.getJSONObject(i);
-                code_array[i] =    childJSONObject.getString("code");
-                credits_array[i] =     childJSONObject.getInt("credits");
-                ltp_array[i] =        childJSONObject.getString("l_t_p");
+                code_array[i] = 	childJSONObject.getString("code");
+                credits_array[i] = 	childJSONObject.getInt("credits");
+                ltp_array[i] = 		childJSONObject.getString("l_t_p");
             }
             for (int i = 0; i < json_array_grade_request.length(); i++) {
                 JSONObject childJSONObject = json_array_grade_request.getJSONObject(i);
@@ -137,9 +136,9 @@ public class GradeScreen extends AppCompatActivity {
             TextView marks  =   new TextView(this);
             //setting the text
             code.setText(code_array[i]);
-            credits.setText(credits_array[i]);
+            credits.setText(String.valueOf(credits_array[i]));
             item.setText(item_array[i]);
-            marks.setText(marks_array[i]);
+            marks.setText(String.valueOf(marks_array[i]));
 /*
             code.setLayoutParams(params1);
             credits.setLayoutParams(params1);
@@ -153,8 +152,4 @@ public class GradeScreen extends AppCompatActivity {
             //row.setLayoutParams(params2);
             all_grade_table.addView(row);}
     }
-
-
-
-
 }

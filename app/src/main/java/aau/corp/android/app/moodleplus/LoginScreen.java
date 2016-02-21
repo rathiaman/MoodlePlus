@@ -121,7 +121,7 @@ public class LoginScreen extends AppCompatActivity {
         //flag for sending to the home page
         int flag = 0;
 
-        String url="http://10.192.18.219:8000/default/login.json?userid=vinay&password=vinay";
+        String url="http://10.192.18.219:8000/default/login.json?userid=cs1110200&password=john";
        // String url="http://tapi.cse.iitd.ernet.in:1805/default/login.json?userid=" + username + "&password=" + password;
         //   String url = "http://10.192.7.98:8000/default/login.json?userid=" + username + "&password=" + password;
         //String url = "http://headers.jsontest.com/";
