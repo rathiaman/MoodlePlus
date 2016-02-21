@@ -1,9 +1,11 @@
 package aau.corp.android.app.moodleplus;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -26,6 +28,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -49,12 +52,7 @@ public class HomeScreen extends AppCompatActivity
      //   implements ExpandableListView.OnGroupExpandListener, ExpandableListView.OnGroupCollapseListener
 {
 
-    public Button to_grades;
-    String first_name;
-    String last_name;
-    String entry_number;
-    String email;
-    String int_type;
+    public TextView to_grades;
     public List<String> course_list_with_name_1 = new ArrayList<>();
     public List<String> course_list_codes_1 = new ArrayList<>();
     public List<String> course_list_codes_2 = new ArrayList<>();
@@ -95,6 +93,36 @@ public class HomeScreen extends AppCompatActivity
     private boolean PressTwice = false;
     @Override
     public void onBackPressed(){
+
+
+        // calls the alert dialogue box
+        AlertDialog.Builder submit_alert = new AlertDialog.Builder(HomeScreen.this);
+        submit_alert.setMessage("Are you sure you want to exit !!!").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // calls the function which send the request to the server
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                System.exit(0);
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {    // If no is pressed, you are taken back to the login screen
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alert = submit_alert.create();
+        alert.setTitle("Alert !!!");
+        alert.show();
+
+
+
+
+/*
         if(PressTwice){
 
             Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -114,11 +142,12 @@ public class HomeScreen extends AppCompatActivity
                 PressTwice = false;
             }
         }, 2000);
+*/
     }
 
 
     private void onButtonClickListener_grades() {
-        to_grades = (Button) findViewById(R.id.to_grades);
+        to_grades = (TextView) findViewById(R.id.to_grades);
         to_grades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,12 +194,9 @@ public class HomeScreen extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.profile) {
             Intent profile_page = new Intent(getApplicationContext(), ProfileScreen.class);
-            /*profile_page.putExtra("EXTRA_FIRST", first_name);
-            profile_page.putExtra("EXTRA_LAST", last_name);
-            profile_page.putExtra("EXTRA_ENTRY", entry_number);
-            profile_page.putExtra("EXTRA_EMAIL", email);
-            profile_page.putExtra("EXTRA_TYPE", int_type);
-            */startActivity(profile_page);
+            Integer user_id=  getIntent().getExtras().getInt("user");
+            profile_page.putExtra("user",user_id);
+            startActivity(profile_page);
         }
         return false;
     }

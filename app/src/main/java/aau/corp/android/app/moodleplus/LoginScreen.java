@@ -1,8 +1,10 @@
 package aau.corp.android.app.moodleplus;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -36,10 +39,18 @@ import java.net.CookieManager;
 
 public class LoginScreen extends AppCompatActivity {
 
-  //  public EditText editText_Username, editText_Password;
+    private String username,password;
+
+    public EditText editText_Username, editText_Password;
         public Button login_button;
         public EditText password_text;
-        public CheckBox show_password;
+        public CheckBox show_password, remember_password;
+
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,24 +65,77 @@ public class LoginScreen extends AppCompatActivity {
         show_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked){
+                if (!isChecked) {
                     password_text.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-                else{
+                } else {
                     password_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
             }
         });
 
+        remember_password = (CheckBox) findViewById(R.id.checkBox_save_password);
+
+
 
     }
+
+
+  /*  public void onClick(View view) {
+        if (view == login_button) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editText_Username.getWindowToken(), 0);
+
+            username = editText_Username.getText().toString();
+            password = editText_Password.getText().toString();
+
+            if (remember_password.isChecked()) {
+                loginPrefsEditor.putBoolean("saveLogin", true);
+                loginPrefsEditor.putString("username", username);
+                loginPrefsEditor.putString("password", password);
+                loginPrefsEditor.commit();
+            } else {
+                loginPrefsEditor.clear();
+                loginPrefsEditor.commit();
+            }
+
+            onButtonClickListener();
+        }
+    }
+*/
 
     // function for back button
     // On back press, a toast message is displayed to press back button again
     // If you press again the back button within time, you end the application
     private boolean PressTwice = false;
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
+
+
+        AlertDialog.Builder submit_alert = new AlertDialog.Builder(LoginScreen.this);
+        submit_alert.setMessage("Are you sure you want to exit !!!").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // calls the function which send the request to the server
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                System.exit(0);
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {    // If no is pressed, you are taken back to the login screen
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alert = submit_alert.create();
+        alert.setTitle("Alert !!!");
+        alert.show();
+
+
+/*
         if(PressTwice){
 
             Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -91,9 +155,10 @@ public class LoginScreen extends AppCompatActivity {
                 PressTwice = false;
             }
         }, 2000);
+
+*/
+
     }
-
-
     // This is the Button Click Listener for the login button
     // On clicking the login button, a dialogue box is created which asks for confirmaton
     // If you press No, you are taken back to login screen with respeective details entered
@@ -135,7 +200,7 @@ public class LoginScreen extends AppCompatActivity {
 
         //creates aDialog box
         final ProgressDialog messageDialog = new ProgressDialog(this);
-        messageDialog.setMessage("sending the information");
+        messageDialog.setMessage("Logging in");
         messageDialog.show();
 
         //obtain the string value for username and password field
@@ -188,22 +253,10 @@ public class LoginScreen extends AppCompatActivity {
             if (result == 1) {
                 // Toast.makeText(MainActivity.this, myinteger, Toast.LENGTH_SHORT).show();
                 JSONObject user = Object.getJSONObject("user");
-                String first_name = user.getString("first_name");
-                String last_name = user.getString("last_name");
-                String entry_no = user.getString("entry_no");
-                String email = user.getString("email");
-                String type_ = user.getString("type_");
-
+                Integer user_id = user.getInt("id");
                 Intent in = new Intent(getApplicationContext(),
                         HomeScreen.class);
-                //in.putExtra(EXTRA_MESSAGE,)
-                Bundle extras = new Bundle();
-                extras.putString("EXTRA_FIRST", first_name);
-                extras.putString("EXTRA_LAST", last_name);
-                extras.putString("EXTRA_ENTRY", entry_no);
-                extras.putString("EXTRA_EMAIL", email);
-                extras.putString("EXTRA_TYPE", type_);
-                in.putExtras(extras);
+                in.putExtra("user", user_id);
                 startActivity(in);
 
             }

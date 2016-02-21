@@ -32,27 +32,29 @@
         android:layout_height="wrap_content"
         android:id="@+id/my_course_expan_list"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerInParent="true" />
 
 
 
 
-    <Button
+    <TextView
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Grades"
         android:id="@+id/to_grades"
         android:layout_below="@+id/my_course_expan_list"
+        android:textSize="20sp"
         android:layout_marginTop="10dp"
         android:background="#FF6A00"
         android:textAlignment="textStart"
         android:layout_gravity="start"
         android:textStyle="bold"/>
 
-    <Button
+    <TextView
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Notifications"
+        android:textSize="20sp"
         android:id="@+id/notifications"
         android:layout_below="@+id/to_grades"
         android:layout_alignParentLeft="@+id/to_grades"

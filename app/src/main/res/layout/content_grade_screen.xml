@@ -20,7 +20,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:divider="#140202"
+        android:showDividers="middle|beginning|end|none">
 
         <TableRow>
 
@@ -48,7 +50,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:text="Graded Item"
+                android:text="Item"
                 android:textSize="20dp"
                 android:layout_column="2"
                 android:clickable="false"

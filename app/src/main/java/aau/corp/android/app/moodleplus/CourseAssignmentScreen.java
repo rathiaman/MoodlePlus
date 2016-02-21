@@ -1,5 +1,6 @@
 package aau.corp.android.app.moodleplus;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -36,8 +40,6 @@ public class CourseAssignmentScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_assignment_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         course_code = getIntent().getExtras().getString("course_code");
         send_data_request();
@@ -110,69 +112,110 @@ public class CourseAssignmentScreen extends AppCompatActivity {
         /* Find Tablelayout defined in main.xml */
         TableLayout course_assig_table = (TableLayout) findViewById(R.id.course_assig_table);
         course_assig_table.setColumnShrinkable(1,true);
+        course_assig_table.setStretchAllColumns(true);
 
-        //running loops for creating rows
-        /*TableRow.LayoutParams  params1=new TableRow.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT,1.0f);
-        TableRow.LayoutParams params2=new TableRow.LayoutParams(RadioGroup.LayoutParams.FILL_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
+
+      /*  FrameLayout.LayoutParams lp_t = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.FILL_PARENT);
+        course_assig_table.setLayoutParams(lp_t);
+        course_assig_table.setStretchAllColumns(true);
 */
+
         for(int i =0 ; i< name_array.length ; i++) {
             //Creating new tablerows and textviews
             TableRow row1 = new TableRow(this);
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+            //layout parameters
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             int leftMargin=0;
-            int topMargin=2;
+            int topMargin=0;
             int rightMargin=0;
-            int bottomMargin=2;
-
+            int bottomMargin = 0;
             lp.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-
-            TextView sno = new TextView(this);
-            TextView name = new TextView(this);
-
-            sno.setText(String.valueOf(i + 1) + ".) ");
-            name.setText(name_array[i] + " ");
-
-            //for span
+            //making textview
+            TextView sno     = new TextView(this);
+            TextView name    = new TextView(this);
+            //setting the values of textview
+            sno.setText(String.valueOf(i + 1) + ". ");
+            name.setText(name_array[i]);
+            //for giving span to the name
             TableRow.LayoutParams trParam = new TableRow.LayoutParams();
             trParam.column= 1;
             trParam.span = 2;
-
+            //layout parametrrs for the name
             name.setLayoutParams(trParam);
-
+            name.setTextSize(15);
+            name.setTypeface(null, Typeface.BOLD);
+            sno.setTextSize(15);
+            sno.setTypeface(null, Typeface.BOLD);
+            //add textview to the row
             row1.addView(sno);
             row1.addView(name);
-
-            row1.setLayoutParams(lp);
+            //set the layoout parameters for the row
             course_assig_table.addView(row1);
-
+///////////////////////////////////////////////////////
             TableRow row2 = new TableRow(this);
-            TableRow.LayoutParams lp2 = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
-
+            TableRow.LayoutParams lp2 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             int leftMargin2=0;
-            int topMargin2=2;
+            int topMargin2=0;
             int rightMargin2=0;
-            int bottomMargin2=8;
-
+            int bottomMargin2=0;
             lp2.setMargins(leftMargin2, topMargin2, rightMargin2, bottomMargin2);
-
-            TextView blank = new TextView(this);
-            //TextView blank1 = new TextView(this);
+            //making textview
+            TextView blank       = new TextView(this);
+            TextView start_text  = new TextView(this);
             TextView start = new TextView(this);
-            TextView end = new TextView(this);
+           // TextView end = new TextView(this);
 
             blank.setText("  ");
-            //blank1.setText("  ");
+            start_text.setText("Released on :  ");
             start.setText(start_array[i]);
-            end.setText(" "+end_array[i]);
-
-            //row2.addView(blank1);
+            start_text.setTextSize(15);
+            start.setTextSize(15);
             row2.addView(blank);
+            row2.addView(start_text);
             row2.addView(start);
-            row2.addView(end);
-
             row2.setLayoutParams(lp2);
             course_assig_table.addView(row2);
+////////////////////////////////////////////////////////////////
+            TableRow row3 = new TableRow(this);
+            TableRow.LayoutParams lp3 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            int leftMargin3=0;
+            int topMargin3=0;
+            int rightMargin3=0;
+            int bottomMargin3=0;
+            lp3.setMargins(leftMargin3, topMargin3, rightMargin3, bottomMargin3);
+            //making textview
+            TextView blank3       = new TextView(this);
+            TextView end_text  = new TextView(this);
+            TextView end = new TextView(this);
+
+            blank3.setText("  ");
+            end_text.setText("Deadline :  ");
+            end.setText(end_array[i]);
+            end_text.setTextSize(15);
+            end.setTextSize(15);
+            row3.addView(blank3);
+            row3.addView(end_text);
+            row3.addView(end);
+            row3.setLayoutParams(lp3);
+            course_assig_table.addView(row3);
+/////////////////////////////////////
+            //entering blank row
+            TableRow row4 = new TableRow(this);
+            TextView blank_1       = new TextView(this);
+            TextView blank_2     = new TextView(this);
+            TextView blank_3       = new TextView(this);
+            blank_1.setText("  ");
+            blank_2.setText("  ");
+            blank_3.setText("  ");
+            row4.addView(blank_1);
+            row4.addView(blank_2);
+            row4.addView(blank_3);
+            row3.setLayoutParams(lp3);
+            course_assig_table.addView(row4);
         }
+
 
 /*
             code.setLayoutParams(params1);

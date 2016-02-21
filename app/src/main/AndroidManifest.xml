@@ -79,10 +79,30 @@
 
         <activity android:name=".CourseAssignmentScreen"
             android:label="Assignments"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
 
             <intent-filter>
                 <action android:name="aau.corp.app.CourseAssignmentScreen"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ThreadActivity"
+            android:label="Threads"
+            android:theme="@style/AppTheme">
+
+            <intent-filter>
+                <action android:name="aau.corp.app.ThreadActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Particular_thread"
+            android:label="Threads"
+            android:theme="@style/AppTheme">
+
+            <intent-filter>
+                <action android:name="aau.corp.app.ParticularThread"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

@@ -32,7 +32,7 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
     List<String> dummy;
 
     //ujjwal
-    public Button assignment_button;
+    public Button assignment_button, thread_button;
     int course_index;
     String course_code;
 
@@ -63,6 +63,7 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
         selectItem(ls + 1);
 
         onButtonClickListener_course_assignment();
+        onButtonClickListener_course_thread();
     }
 
 
@@ -88,6 +89,18 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
             @Override
             public void onClick(View v) {
                 Intent course_assignment = new Intent(getApplicationContext(), CourseAssignmentScreen.class);
+                course_assignment.putExtra("course_code", course_code);
+                startActivity(course_assignment);
+            }
+        });
+    }
+
+    private void onButtonClickListener_course_thread() {
+        thread_button = (Button) findViewById(R.id.thread_button);
+        thread_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent course_assignment = new Intent(getApplicationContext(), ThreadActivity.class);
                 course_assignment.putExtra("course_code", course_code);
                 startActivity(course_assignment);
             }
