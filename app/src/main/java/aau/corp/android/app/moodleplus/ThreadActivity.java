@@ -240,7 +240,7 @@ public class ThreadActivity extends AppCompatActivity {
     }
 
     ///////////////////////////////////
-    ///
+    /// This method is to submit the new thread entered
     ///////////////////////////////////
     public void submitNewThread(){
 
