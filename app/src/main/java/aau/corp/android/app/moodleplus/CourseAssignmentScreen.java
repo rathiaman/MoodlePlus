@@ -90,7 +90,6 @@ public class CourseAssignmentScreen extends AppCompatActivity {
         MySingleton.getInstance(this).addToRequestQueue(request);
         }
 
-
     public void create_all_data_array(String response){
 
         JSONObject mainObject ;
@@ -125,7 +124,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
         }
     }
 
-    public void send_data_request_1(int assignment_number ){
+    public void send_data_request_1(int  assignment_number ){
         //url for grades
         String url="http://10.192.18.219:8000//courses/assignment.json/"+String.valueOf(assignment_number);
 
@@ -173,16 +172,17 @@ public class CourseAssignmentScreen extends AppCompatActivity {
 
             TextView course_assig_textveiw_1 = (TextView) findViewById(R.id.course_assig_textveiw_1);
             course_assig_textveiw_1.setText(assignment_detail.getString("name"));
+            course_assig_textveiw_1.setTypeface(null, Typeface.BOLD);
             TextView course_assig_textveiw_2 = (TextView) findViewById(R.id.course_assig_textveiw_2);
             course_assig_textveiw_2.setText(Html.fromHtml(assignment_detail.getString("description")));
 
             TextView course_assig_textveiw_3 = (TextView) findViewById(R.id.course_assig_textveiw_3);
-            course_assig_textveiw_1.setText("Created at:  "+assignment_detail.getString("created_at"));
-            course_assig_textveiw_1.setTypeface(null, Typeface.BOLD);
+            course_assig_textveiw_3.setText("Created at:  " + assignment_detail.getString("created_at"));
+
             TextView course_assig_textveiw_4 = (TextView) findViewById(R.id.course_assig_textveiw_4);
-            course_assig_textveiw_1.setText("Deadline:  "+assignment_detail.getString("deadline"));
+            course_assig_textveiw_4.setText("Deadline:  "+assignment_detail.getString("deadline"));
             TextView course_assig_textveiw_5 = (TextView) findViewById(R.id.course_assig_textveiw_5);
-            course_assig_textveiw_1.setText("late Days allowed:  "+assignment_detail.getString("late_days_allowed"));
+            course_assig_textveiw_5.setText("late Days allowed:  "+assignment_detail.getString("late_days_allowed"));
 
         }catch(Exception e){
             e.printStackTrace();
