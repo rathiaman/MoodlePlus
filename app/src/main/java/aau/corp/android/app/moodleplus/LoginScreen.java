@@ -55,6 +55,7 @@ public class LoginScreen extends AppCompatActivity {
     public EditText editText_Username;
     public Button login_button;
     public EditText password_text;
+    public EditText ip_address_text;
     public CheckBox show_password, remember_password;
 
     private SharedPreferences loginPreferences;
@@ -180,7 +181,11 @@ public class LoginScreen extends AppCompatActivity {
         //flag for sending to the home page
         int flag = 0;
 
-        String url="http://10.192.18.219:8000/default/login.json?userid=cs1110200&password=john";
+        ip_address_text = (EditText) findViewById(R.id.edit_text_IPAddress);
+        final String adder1 = ip_address_text.getText().toString();
+      //  Toast.makeText(LoginScreen.this, adder1, Toast.LENGTH_SHORT).show();
+
+        String url="http://" + adder1 + ":8000/default/login.json?userid=cs1110200&password=john";
        // String url="http://tapi.cse.iitd.ernet.in:1805/default/login.json?userid=" + username + "&password=" + password;
         //   String url = "http://10.192.7.98:8000/default/login.json?userid=" + username + "&password=" + password;
         //String url = "http://headers.jsontest.com/";
