@@ -36,15 +36,26 @@ import org.json.JSONObject;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 
+///////////////////////////////////
+// This class is for the login screen
+// You need to put in your username and password and on correct credentials, you will be correctly logged in
+// This screen also contains extra features like remember password and show password to make it asthetically better and user friendly
+///////////////////////////////////
+
 
 public class LoginScreen extends AppCompatActivity {
 
-    private String username,password;
+    ///////////////////////////////////
+    // Declaring variables
+    ///////////////////////////////////
 
-    public EditText editText_Username, editText_Password;
-        public Button login_button;
-        public EditText password_text;
-        public CheckBox show_password, remember_password;
+    ///////////////////////////////////
+    // Variables for different palletes of login screen
+    ///////////////////////////////////
+    public EditText editText_Username;
+    public Button login_button;
+    public EditText password_text;
+    public CheckBox show_password, remember_password;
 
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
@@ -56,12 +67,18 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginscreen);
         onButtonClickListener();
-       /* editText_Username = (EditText) findViewById(R.id.editText_Username);
-        editText_Password = (EditText) findViewById(R.id.editText_Password);
-*/
 
+        ///////////////////////////////////
+        // Declaring ids for the variables made
+        ///////////////////////////////////
         show_password = (CheckBox) findViewById(R.id.show_password);
         password_text = (EditText) findViewById(R.id.edit_text_password);
+
+        ///////////////////////////////////
+        // Show password option
+        // On clicking the checkbox, the password will be immediately converted to the entered text
+        // On checked change listenen
+        ///////////////////////////////////
         show_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -75,47 +92,23 @@ public class LoginScreen extends AppCompatActivity {
 
         remember_password = (CheckBox) findViewById(R.id.checkBox_save_password);
 
-
-
     }
 
 
-  /*  public void onClick(View view) {
-        if (view == login_button) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(editText_Username.getWindowToken(), 0);
-
-            username = editText_Username.getText().toString();
-            password = editText_Password.getText().toString();
-
-            if (remember_password.isChecked()) {
-                loginPrefsEditor.putBoolean("saveLogin", true);
-                loginPrefsEditor.putString("username", username);
-                loginPrefsEditor.putString("password", password);
-                loginPrefsEditor.commit();
-            } else {
-                loginPrefsEditor.clear();
-                loginPrefsEditor.commit();
-            }
-
-            onButtonClickListener();
-        }
-    }
-*/
-
-    // function for back button
-    // On back press, a toast message is displayed to press back button again
-    // If you press again the back button within time, you end the application
-    private boolean PressTwice = false;
+    ///////////////////////////////////
+    // This function is for back pressed button
+    // If you press back, an alert dialogue box will appear and show Yes and No options
+    // On Clicking Yes, you will exit the application
+    // On Clicking No, nothing will happen and you will be back at Login Screen
+    ///////////////////////////////////
     @Override
     public void onBackPressed() {
-
 
         AlertDialog.Builder submit_alert = new AlertDialog.Builder(LoginScreen.this);
         submit_alert.setMessage("Are you sure you want to exit !!!").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // calls the function which send the request to the server
+                // calls the function which send the request
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -134,35 +127,14 @@ public class LoginScreen extends AppCompatActivity {
         alert.setTitle("Alert !!!");
         alert.show();
 
-
-/*
-        if(PressTwice){
-
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-            System.exit(0);
-
-        }
-
-        PressTwice = true;
-        Toast.makeText(this, "Press BACK Button again to Exit", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PressTwice = false;
-            }
-        }, 2000);
-
-*/
-
     }
+
+    ///////////////////////////////////
     // This is the Button Click Listener for the login button
     // On clicking the login button, a dialogue box is created which asks for confirmaton
     // If you press No, you are taken back to login screen with respeective details entered
     // If you press yes, server request in sent and if correct credentials are entered, ypu are correctly logged in to your  home screen
+    ///////////////////////////////////
     public void onButtonClickListener() {
         login_button = (Button) findViewById(R.id.login_button);
         login_button.setOnClickListener(new View.OnClickListener() {
@@ -188,14 +160,13 @@ public class LoginScreen extends AppCompatActivity {
                 alert.setTitle("Alert !!!");
                 alert.show();
 
-
             }
         });
  }
 
-
-
+    ///////////////////////////////////
     //function defined for sending the string request
+    ///////////////////////////////////
     private void sendRequest() {
 
         //creates aDialog box
@@ -231,8 +202,11 @@ public class LoginScreen extends AppCompatActivity {
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
 
         //for handling cookies
         CookieManager manager = new CookieManager();

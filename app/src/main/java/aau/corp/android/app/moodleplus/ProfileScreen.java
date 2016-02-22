@@ -21,22 +21,35 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+
+///////////////////////////////////
+// This class is for the user profile screen
+// This class will open when user taps on the profile option at the 3-dot menu item in Home screen
+// Contains data of the user like first name, last name, entry number, email address, account type
+///////////////////////////////////
+
 public class ProfileScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_screen);
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-*/
+
+        ///////////////////////////////////
         //getting the value for the username
+        ///////////////////////////////////
         Integer user_id=  getIntent().getExtras().getInt("user");
 
+        ///////////////////////////////////
+        // Calling the defined function send data request
+        ///////////////////////////////////
         send_data_request(user_id);
 
     }
 
+    ///////////////////////////////////
+    // This function sends the to the server
+    ///////////////////////////////////
     public void send_data_request( int user_id){
         //url for grades
         String url="http://10.192.18.219:8000//users/user.json/"+String.valueOf(user_id);
@@ -67,11 +80,17 @@ public class ProfileScreen extends AppCompatActivity {
                         Toast.makeText(ProfileScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        ///////////////////////////////////
+        // Get a RequestQueue
+        ///////////////////////////////////
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
     }
 
+    ///////////////////////////////////
+    // Extracting user data via JSON parsing
+    ///////////////////////////////////
     public void show_user_data(String response){
 
         try {
@@ -80,18 +99,23 @@ public class ProfileScreen extends AppCompatActivity {
 
             TextView first_name_answer, last_name_answer, entry_no_answer, email_address_answer, account_type_answer;
 
+            ///////////////////////////////////
+            // Defining variables
+            ///////////////////////////////////
             first_name_answer = (TextView) findViewById(R.id.first_name_answer);
             last_name_answer = (TextView) findViewById(R.id.last_name_answer);
             entry_no_answer = (TextView) findViewById(R.id.entry_no_answer);
             email_address_answer = (TextView) findViewById(R.id.email_address_answer);
             account_type_answer = (TextView) findViewById(R.id.account_type_answer);
 
+            ///////////////////////////////////
+            // Setting values of variables
+            ///////////////////////////////////
             first_name_answer.setText(user_detail.getString("first_name"));
             last_name_answer.setText(user_detail.getString("last_name"));
             entry_no_answer.setText(user_detail.getString("entry_no"));
             email_address_answer.setText(user_detail.getString("email"));
             int user_type = user_detail.getInt("type_");
-
 
             if(user_type == 0){
                 account_type_answer.setText("Student");

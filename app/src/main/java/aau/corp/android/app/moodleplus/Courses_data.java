@@ -8,9 +8,16 @@ import java.util.List;
  * Created by Aman Rathi on 20-02-2016.
  */
 
+///////////////////////////////////
 // here the data of the course names is stored
+// This class was created initially to check whether the dropdown list
+///////////////////////////////////
 
 public class Courses_data {
+
+    ///////////////////////////////////
+    // Created list for dropdown button
+    ///////////////////////////////////
     public static HashMap<String, List<String>> getInfo(){
         HashMap<String, List<String>> my_courses = new HashMap<String, List<String>>();
                 List<String> My_Courses = new ArrayList<>();
@@ -24,6 +31,10 @@ public class Courses_data {
         my_courses.put("MY COURSES", My_Courses);
         return my_courses;
     }
+
+    ///////////////////////////////////
+    // raw data for the navigation drawer
+    ///////////////////////////////////
 
     public static ArrayList<String> getcourselist(){
         ArrayList<String> My_Courses_list_2 = new ArrayList<>();

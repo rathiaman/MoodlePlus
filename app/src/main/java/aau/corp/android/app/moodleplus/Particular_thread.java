@@ -24,56 +24,74 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+///////////////////////////////////
+// This activity is for a particular thread
+// On clicking any particular thread, this activity will open up
+////////////////////////////////////
+
 public class Particular_thread extends AppCompatActivity {
 
     private static EditText comment;
 
+    ///////////////////////////////////
+    // Declaring variables
+    ///////////////////////////////////
      String course_code;
-    Integer index;
+     Integer index;
      Button post_comment;
-    Integer[] user_id_array;
-    String[] description_array;
-    String[] time_array;
+     Integer[] user_id_array;
+     String[] description_array;
+     String[] time_array;
 
-
+    ///////////////////////////////////
+    // IP address
+    ///////////////////////////////////
     String adder = "10.192.18.219";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_particular_thread);
+
+        ///////////////////////////////////
+        // Defining ids
+        ///////////////////////////////////
         comment = (EditText)findViewById(R.id.add_comment);
         post_comment =(Button)findViewById(R.id.post_comment);
 
+        ///////////////////////////////////
         //get thread id and course_code
+        ///////////////////////////////////
         Bundle extras = getIntent().getExtras();
 
-
+        ///////////////////////////////////
+        // Extracting from intent bundle
+        ///////////////////////////////////
         course_code = extras.getString("EXTRA_COURSE_CODE");
         index = extras.getInt("EXTRA_THREAD_ID");
         Toast.makeText(Particular_thread.this, Integer.toString(index), Toast.LENGTH_SHORT ).show();
 
-
-
-
+        ///////////////////////////////////
         //API call to get the details of page
+        ///////////////////////////////////
         sendParticularThread();
 
+        ///////////////////////////////////
+        // On click listener for the post comment button
+        ///////////////////////////////////
         post_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 submitNewComment();
-
-
             }
-
         });
 
     }
 
+    ///////////////////////////////////
+    // Function for submitting new comments
+    ///////////////////////////////////
     public void submitNewComment(){
-
 
         final String post_comment = comment.getText().toString();
 
@@ -84,9 +102,7 @@ public class Particular_thread extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.e("hello1", response.toString());
                         Toast.makeText(Particular_thread.this, response.toString(), Toast.LENGTH_SHORT).show();
-
                         //dialog box
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -100,15 +116,12 @@ public class Particular_thread extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
 
-
-
-
     }
 
-
-
-    private void sendParticularThread()
-    {
+    ///////////////////////////////////
+    // Function requesting the server for a particular thread
+    ///////////////////////////////////
+    private void sendParticularThread(){
 
         String url = "http://" + adder + ":8000/threads/thread.json/"+Integer.toString(index);
         StringRequest request = new StringRequest(Request.Method.GET, url,
@@ -130,11 +143,15 @@ public class Particular_thread extends AppCompatActivity {
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
-
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
     }
 
+    ///////////////////////////////////
+    // JSON Object extraction
+    ///////////////////////////////////
     void dowithParticularThread(String response)
     {
         JSONObject mainObject ;
@@ -143,8 +160,15 @@ public class Particular_thread extends AppCompatActivity {
             mainObject = new JSONObject(response);
             JSONObject json_thread = mainObject.getJSONObject("thread");
 
+            ///////////////////////////////////
+            // Declaring variables
+            ///////////////////////////////////
             String name1,thready_title1,updated1,created1,description1;
             // String[] title_array,updated_array;
+
+            ///////////////////////////////////
+            // Extracting data from the JSON Object
+            ///////////////////////////////////
 
             name1 = String.valueOf(json_thread.getInt("user_id"));
             thready_title1=json_thread.getString("title");
@@ -152,7 +176,9 @@ public class Particular_thread extends AppCompatActivity {
             created1=json_thread.getString("created_at");
             description1 = json_thread.getString("description");
 
+            ///////////////////////////////////
             // giving ids to text fields
+            ///////////////////////////////////
             TextView name = (TextView)findViewById(R.id.name);
             TextView thready_title = (TextView)findViewById(R.id.thready_title);
             TextView updated = (TextView)findViewById(R.id.update);
@@ -171,10 +197,11 @@ public class Particular_thread extends AppCompatActivity {
             JSONArray json_array_comments =   mainObject.getJSONArray("comments");
             JSONArray json_array_time =   mainObject.getJSONArray("times_readable");
 
-
+            ///////////////////////////////////
             //declaring the size of the array
+            ///////////////////////////////////
 
-           user_id_array = new Integer[json_array_comments.length()];
+            user_id_array = new Integer[json_array_comments.length()];
             description_array = new String[json_array_comments.length()];
             time_array = new String[json_array_time.length()];
 
@@ -190,10 +217,9 @@ public class Particular_thread extends AppCompatActivity {
                 time_array[i] =  json_array_time.getString(i);
             }
 
-
-            /////////////
-        //user_id_array, description_array , time_array
-        // create_comment_table();
+            ///////////////////////////////////
+            //user_id_array, description_array , time_array
+            // create_comment_table();
 
         }catch (JSONException e){
             e.printStackTrace();}
@@ -201,6 +227,9 @@ public class Particular_thread extends AppCompatActivity {
     }
 
 
+    ///////////////////////////////////
+    //
+    ///////////////////////////////////
     public String getUserNamefromId(String id){
 
         final String[]  nameOfId = new String[0];
@@ -230,16 +259,13 @@ public class Particular_thread extends AppCompatActivity {
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
-
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
 
     return nameOfId[0];
 
     }
-
-
-
-
 
 }

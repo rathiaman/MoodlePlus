@@ -10,6 +10,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        /////////////////////////////
+        // Login Screen Activity   //
+        /////////////////////////////
         <activity
             android:name=".LoginScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -19,6 +23,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+
+        /////////////////////////////
+        // Splash Screen Activity   //
+        /////////////////////////////
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,27 +35,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        /////////////////////////////
+        // Home Screen Activity   //
+        /////////////////////////////
         <activity
             android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="aau.corp.android.app.HomeScreen" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--<activity
-            android:name=".Courses"
-            android:label="@string/courses"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="aau.corp.android.app.Courses" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
 
-        </activity>-->
+
+        /////////////////////////////
+        // Courses Screen Activity   //
+        /////////////////////////////
         <activity android:name=".Courses"
             android:theme="@style/AppTheme"
             android:label="@string/courses">
@@ -57,9 +66,14 @@
             </intent-filter>
         </activity>
 
+
+
+        /////////////////////////////
+        // Overall Grades Screen Activity   //
+        /////////////////////////////
         <activity android:name=".GradeScreen"
             android:label="Grades"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="aau.corp.android.app.GradeScreen"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -67,9 +81,13 @@
         </activity>
 
 
+
+        /////////////////////////////
+        // Profile Screen Activity   //
+        /////////////////////////////
         <activity android:name=".ProfileScreen"
             android:label="Profile"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
 
         <intent-filter>
                 <action android:name="aau.corp.app.ProfileScreen"/>
@@ -77,6 +95,10 @@
             </intent-filter>
         </activity>
 
+
+        /////////////////////////////
+        // Course Assignment Screen Activity   //
+        /////////////////////////////
         <activity android:name=".CourseAssignmentScreen"
             android:label="Assignments"
             android:theme="@style/AppTheme">
@@ -87,6 +109,10 @@
             </intent-filter>
         </activity>
 
+
+        /////////////////////////////
+        // Thread Screen Activity   //
+        /////////////////////////////
         <activity android:name=".ThreadActivity"
             android:label="Threads"
             android:theme="@style/AppTheme">
@@ -97,6 +123,10 @@
             </intent-filter>
         </activity>
 
+
+        /////////////////////////////
+        // Particular Thread Screen Activity   //
+        /////////////////////////////
         <activity android:name=".Particular_thread"
             android:label="Threads"
             android:theme="@style/AppTheme">

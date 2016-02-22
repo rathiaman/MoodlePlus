@@ -28,59 +28,79 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+///////////////////////////////////
+// This class id for different threads present
+// When you at any course and you tap on the threads button, then you are taken to this activity
+///////////////////////////////////
+
 public class ThreadActivity extends AppCompatActivity {
 
 
     private static EditText thread_title, description;
-   // String[] title_array,updated_array;
+    // String[] title_array,updated_array;
 
+    ///////////////////////////////////
+    // Declaring variables
+    ///////////////////////////////////
     String[] title_array,updated_array;
     Integer[] id_array,thread_no;
     String course_code;
     Button Submit;
 
-
+    ///////////////////////////////////
+    // IP Address
+    ///////////////////////////////////
     String adder = "10.192.18.219";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread);
 
+        ///////////////////////////////////
+        // Defining variables with the ids
+        ///////////////////////////////////
         Submit = (Button)findViewById(R.id.submit);
         thread_title = (EditText) findViewById(R.id.thread_title);
         description = (EditText) findViewById(R.id.description);
 
-
+        ///////////////////////////////////
+        // Extracting information from intent
+        ///////////////////////////////////
         course_code = getIntent().getExtras().getString("course_code");
 
+        ///////////////////////////////////
+        // Setting the title to Threads: "Course Code"
+        ///////////////////////////////////
         String title = "Threads: " + course_code.toUpperCase();
         setTitle(title);
 
-
+        ///////////////////////////////////
+        // Calling the function of send thread
+        ///////////////////////////////////
         sendThread();
 
+        ///////////////////////////////////
+        // OnClick Listener for Submit Button
+        ///////////////////////////////////
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ///////////////////////////////////
+                // Function call to submit new thread
+                ///////////////////////////////////
                 submitNewThread();
-
-
             }
 
         });
 
-
     }
 
-
-
+    ///////////////////////////////////
+    // Calling the server to send the thread
+    ///////////////////////////////////
     private void sendThread()
     {
-
-
         String url = "http://" + adder + ":8000/courses/course.json/"+course_code +"/threads";
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -101,11 +121,15 @@ public class ThreadActivity extends AppCompatActivity {
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
-
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
     }
 
+    ///////////////////////////////////
+    // Extracting the JSON Response
+    ///////////////////////////////////
     void dowithThread(String response)
     {
         JSONObject mainObject ;
@@ -122,20 +146,16 @@ public class ThreadActivity extends AppCompatActivity {
             updated_array = new String[json_array_thread_request.length()];
             id_array = new Integer[json_array_thread_request.length()];
 
-
-
             for (int i = 0; i < json_array_thread_request.length(); i++) {
                 JSONObject childJSONObject = json_array_thread_request.getJSONObject(i);
-                title_array[i] =    childJSONObject.getString("title");
-                updated_array[i] =     childJSONObject.getString("updated_at");
-                id_array[i] =        childJSONObject.getInt("id");
+                title_array[i] = childJSONObject.getString("title");
+                updated_array[i] = childJSONObject.getString("updated_at");
+                id_array[i] = childJSONObject.getInt("id");
             }
 
             /////////////
 
             Toast.makeText(ThreadActivity.this,"size" + title_array.length, Toast.LENGTH_SHORT ).show();
-
-
 
             create_thread_table();
         }catch (JSONException e){
@@ -145,50 +165,56 @@ public class ThreadActivity extends AppCompatActivity {
     }
    // int idOfThread;
 
+    ///////////////////////////////////
+    // This functions create a table for the threads submitted
+    ///////////////////////////////////
     public void create_thread_table(){
         /* Find Tablelayout defined in main.xml */
         TableLayout all_thread_table = (TableLayout) findViewById(R.id.all_thread_table);
 
-        //running loops for creating rows
-        /*TableRow.LayoutParams  params1=new TableRow.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT,1.0f);
-        TableRow.LayoutParams params2=new TableRow.LayoutParams(RadioGroup.LayoutParams.FILL_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
-*/
-
-
-
-
         for(int i =0 ; i< title_array.length ; i++) {
+
+            ///////////////////////////////////
             //Creating new tablerows and textviews
+            ///////////////////////////////////
             TableRow row    =   new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
             TextView title   =   new TextView(this);
             TextView id=   new TextView(this);
             TextView updated_at   =   new TextView(this);
+
+            ///////////////////////////////////
             //setting the text
+            ///////////////////////////////////
             title.setText(title_array[i]);
             id.setText(String.valueOf(i+1));
             updated_at.setText(updated_array[i]);
+
+            ///////////////////////////////////
             //setting the allignment
+            ///////////////////////////////////
             title.setGravity(Gravity.CENTER);
             id.setGravity(Gravity.CENTER);
             updated_at.setGravity(Gravity.CENTER);
-            title.setTextAppearance(this,
-                    android.R.style.TextAppearance_Medium);
+            title.setTextAppearance(this, android.R.style.TextAppearance_Medium);
             title.setTypeface(Typeface.DEFAULT);
             title.setTextColor(Color.BLUE);
-            title.setPaintFlags(title.getPaintFlags()
-                    | Paint.UNDERLINE_TEXT_FLAG);
+            title.setPaintFlags(title.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
+            ///////////////////////////////////
             //declaration as final so that i can be used in onclicklistener
+            ///////////////////////////////////
             final int idOfThread = id_array[i];
 
+            ///////////////////////////////////
+            // On Click Listener
+            ///////////////////////////////////
             title.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(ThreadActivity.this,"Clicked",Toast.LENGTH_SHORT).show();
-
 
                     Intent in = new Intent(ThreadActivity.this,Particular_thread.class);
 
@@ -200,12 +226,12 @@ public class ThreadActivity extends AppCompatActivity {
 
                     startActivity(in);
 
-
                 }
             });
 
-
-          //the textviews have to be added to the row created
+            ///////////////////////////////////
+            //the textviews have to be added to the row created
+            ///////////////////////////////////
             row.addView(id);
             row.addView(title);
             row.addView(updated_at);
@@ -213,7 +239,10 @@ public class ThreadActivity extends AppCompatActivity {
             all_thread_table.addView(row);}
     }
 
-  public void submitNewThread(){
+    ///////////////////////////////////
+    ///
+    ///////////////////////////////////
+    public void submitNewThread(){
 
 
       final String thread_title1 = thread_title.getText().toString();
@@ -239,11 +268,10 @@ public class ThreadActivity extends AppCompatActivity {
                   }
               });
 
-      RequestQueue requestQueue = Volley.newRequestQueue(this);
-      requestQueue.add(request);
-
-
-
+      // Get a RequestQueue
+      RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+      // Add a request (in this example, called stringRequest) to your RequestQueue.
+      MySingleton.getInstance(this).addToRequestQueue(request);
 
   }
 

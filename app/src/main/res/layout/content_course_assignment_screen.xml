@@ -13,16 +13,72 @@
     tools:showIn="@layout/activity_course_assignment_screen"
     android:background="#FF6A00">
 
-
-    <TableLayout
-        android:id="@+id/course_assig_table"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp">
-    </TableLayout>
+        android:id="@+id/scrollView">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:id="@+id/course_assig_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TableLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/course_assig_textveiw_1"
+                android:layout_marginTop="20dp"
+                android:text="                        "
+                android:textSize="18dp"
+                android:layout_below="@+id/course_assig_table"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="                         "
+                android:id="@+id/course_assig_textveiw_2"
+                android:textSize="18dp"
+                android:layout_below="@id/course_assig_textveiw_1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="                         "
+                android:id="@+id/course_assig_textveiw_3"
+                android:textSize="18dp"
+                android:layout_below="@id/course_assig_textveiw_2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="                         "
+                android:id="@+id/course_assig_textveiw_4"
+                android:textSize="18dp"
+                android:layout_below="@+id/course_assig_textveiw_3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="                             "
+                android:id="@+id/course_assig_textveiw_5"
+                android:textSize="18dp"
+                android:layout_below="@+id/course_assig_textveiw_4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

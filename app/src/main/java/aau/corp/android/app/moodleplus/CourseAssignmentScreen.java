@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +29,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+///////////////////////////////////
+// This class is for the Assignments of respective courses
+// If you tap on assignments button at a particular course, new activity will open which will show the assignments at the particular course selected
+///////////////////////////////////
+
 public class CourseAssignmentScreen extends AppCompatActivity {
 
-    //declaring arrays for storung the data to be displayed
+    //declaring arrays for storing the data to be displayed
     String[] name_array ;
     String[] start_array ;
     String[] end_array ;
     String course_code ;
+    Integer[] assig_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +84,11 @@ public class CourseAssignmentScreen extends AppCompatActivity {
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
-    }
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
+        }
 
 
     public void create_all_data_array(String response){
@@ -92,18 +101,90 @@ public class CourseAssignmentScreen extends AppCompatActivity {
 
             JSONArray json_array_course_request =   mainObject.getJSONArray("assignments");
             //declaring the size of the array
-            name_array = new String[json_array_course_request.length()];
+            name_array  = new String[json_array_course_request.length()];
             start_array = new String[json_array_course_request.length()];
-            end_array = new String[json_array_course_request.length()];
+            end_array   = new String[json_array_course_request.length()];
+            assig_id    = new Integer[json_array_course_request.length()];
 
             for (int i = 0; i < json_array_course_request.length(); i++) {
                 JSONObject childJSONObject = json_array_course_request.getJSONObject(i);
-                name_array[i] = childJSONObject.getString("name");
-                start_array[i] = childJSONObject.getString("created_at");
-                end_array[i] = childJSONObject.getString("deadline");
+                name_array[i]   = childJSONObject.getString("name");
+                start_array[i]  = childJSONObject.getString("created_at");
+                end_array[i]    = childJSONObject.getString("deadline");
+                assig_id[i]     = childJSONObject.getInt("id");
             }
-            create_grade_table();
+            if(name_array.length==0){
+                TextView course_assig_textveiw_1 = (TextView) findViewById(R.id.course_assig_textveiw_1);
+                course_assig_textveiw_1.setText("You have no assignments for this course");
+            }
+            else {
+                create_grade_table();
+            }
         }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void send_data_request_1(int assignment_number ){
+        //url for grades
+        String url="http://10.192.18.219:8000//courses/assignment.json/"+String.valueOf(assignment_number);
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("hello1", response);
+                        try {
+                            Log.e("qwerty", response.toString());
+                            //mainObject = new JSONObject(response);
+                            show_assig_detail(response);
+                            //Toast.makeText(GradeScreen.this, response, Toast.LENGTH_SHORT).show();
+                        }
+                        catch(Exception e){
+                            Log.e("u1" , e.toString());
+                            e.printStackTrace();
+                            Toast.makeText(CourseAssignmentScreen.this, e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("u2" , error.toString());
+                        //Toast.makeText(LoginScreen.this, "You have an error in request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CourseAssignmentScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).
+                getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    public void show_assig_detail(String response){
+
+        try {
+            JSONObject course_assignment_detail = new JSONObject(response);
+
+            JSONObject assignment_detail = course_assignment_detail.getJSONObject("assignment");
+            JSONObject assignment_course_detail = course_assignment_detail.getJSONObject("course");
+
+            TextView course_assig_textveiw_1 = (TextView) findViewById(R.id.course_assig_textveiw_1);
+            course_assig_textveiw_1.setText(assignment_detail.getString("name"));
+            TextView course_assig_textveiw_2 = (TextView) findViewById(R.id.course_assig_textveiw_2);
+            course_assig_textveiw_2.setText(Html.fromHtml(assignment_detail.getString("description")));
+
+            TextView course_assig_textveiw_3 = (TextView) findViewById(R.id.course_assig_textveiw_3);
+            course_assig_textveiw_1.setText("Created at:  "+assignment_detail.getString("created_at"));
+            course_assig_textveiw_1.setTypeface(null, Typeface.BOLD);
+            TextView course_assig_textveiw_4 = (TextView) findViewById(R.id.course_assig_textveiw_4);
+            course_assig_textveiw_1.setText("Deadline:  "+assignment_detail.getString("deadline"));
+            TextView course_assig_textveiw_5 = (TextView) findViewById(R.id.course_assig_textveiw_5);
+            course_assig_textveiw_1.setText("late Days allowed:  "+assignment_detail.getString("late_days_allowed"));
+
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -148,6 +229,20 @@ public class CourseAssignmentScreen extends AppCompatActivity {
             name.setTypeface(null, Typeface.BOLD);
             sno.setTextSize(15);
             sno.setTypeface(null, Typeface.BOLD);
+
+            //for getting the id of assignemnt clicked
+            final Integer assignment_number = assig_id[i];
+
+            name.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    send_data_request_1(assignment_number);
+                }
+            });
+
+
+
             //add textview to the row
             row1.addView(sno);
             row1.addView(name);
@@ -165,7 +260,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
             TextView blank       = new TextView(this);
             TextView start_text  = new TextView(this);
             TextView start = new TextView(this);
-           // TextView end = new TextView(this);
+            // TextView end = new TextView(this);
 
             blank.setText("  ");
             start_text.setText("Released on :  ");
@@ -226,7 +321,6 @@ public class CourseAssignmentScreen extends AppCompatActivity {
         //row.setLayoutParams(params2);
 
     }
-
 
 
 }

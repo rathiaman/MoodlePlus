@@ -13,8 +13,9 @@ import android.widget.ImageView;
 
 import static aau.corp.android.app.moodleplus.R.anim.abc_fade_out;
 
-
+///////////////////////////////////
 // Creates a splash screen on launch for some time
+///////////////////////////////////
 
 public class Splash extends Activity{
 
@@ -23,15 +24,25 @@ public class Splash extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
+        ///////////////////////////////////
         // calls the imgae displayed in splash screen
+        ///////////////////////////////////
         final ImageView splashscreen = (ImageView)findViewById(R.id.imageView);
+
+        ///////////////////////////////////
         // animation involved in splash screen
         // duration animation
+        ///////////////////////////////////
         final Animation animation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.duration);
+
+        ///////////////////////////////////
         // fade out animation
+        ///////////////////////////////////
         final Animation animation2 = AnimationUtils.loadAnimation(getBaseContext(), abc_fade_out);
 
-
+        ///////////////////////////////////
+        // Function call for the launch and animation of screen
+        ///////////////////////////////////
         splashscreen.startAnimation(animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -39,16 +50,25 @@ public class Splash extends Activity{
 
             }
 
+            ///////////////////////////////////
             // defines the command to be executed after animation end
+            ///////////////////////////////////
             @Override
             public void onAnimationEnd(Animation animation) {
 
+                ///////////////////////////////////
+                // animation starts
+                ///////////////////////////////////
                 splashscreen.startAnimation(animation2);
+                ///////////////////////////////////
+                // animation finishes
+                ///////////////////////////////////
                 finish();
-                //Intent i = new Intent("aau.corp.android.app.moodleplus.LoginScreen");
 
-                // calls the login screen
-              Intent i = new Intent(Splash.this, LoginScreen.class);
+                ///////////////////////////////////
+                // Intent call to directly go to the login screen
+                ///////////////////////////////////
+                Intent i = new Intent(Splash.this, LoginScreen.class);
                 startActivity(i);
             }
 
@@ -57,7 +77,6 @@ public class Splash extends Activity{
 
             }
         });
-
 
     }
 }

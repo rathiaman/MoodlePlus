@@ -29,7 +29,9 @@ import static android.widget.RadioGroup.*;
 
 public class GradeScreen extends AppCompatActivity {
 
-    //declaring arrays for storung the data to be displayed
+    ///////////////////////////////////
+    //declaring arrays for storing the data to be displayed
+    ///////////////////////////////////
     String[] code_array ;
     String[] ltp_array ;
     Integer[] marks_array ;
@@ -40,12 +42,16 @@ public class GradeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grade_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
+        ///////////////////////////////////
+        // Calling the function to send the request
+        ///////////////////////////////////
         send_data_request();
     }
 
+    ///////////////////////////////////
+    // This function is send the request to the server
+    ///////////////////////////////////
     public void send_data_request(){
         //url for grades
         String url="http://10.192.18.219:8000/default/grades.json";
@@ -77,10 +83,15 @@ public class GradeScreen extends AppCompatActivity {
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
     }
 
+    ///////////////////////////////////
+    // This function is for extracting the data and showing it up xml file
+    ///////////////////////////////////
     public void create_all_data_array(String response){
 
         JSONObject mainObject ;
@@ -118,14 +129,15 @@ public class GradeScreen extends AppCompatActivity {
         }
     }
 
+    ///////////////////////////////////
+    // Creation of Grade Table
+    ///////////////////////////////////
     public void create_grade_table(){
         /* Find Tablelayout defined in main.xml */
         TableLayout all_grade_table = (TableLayout) findViewById(R.id.all_grade_table);
 
         //running loops for creating rows
-        /*TableRow.LayoutParams  params1=new TableRow.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT,1.0f);
-        TableRow.LayoutParams params2=new TableRow.LayoutParams(RadioGroup.LayoutParams.FILL_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
-*/
+
         for(int i =0 ; i< code_array.length ; i++) {
             //Creating new tablerows and textviews
             TableRow row    =   new TableRow(this);
@@ -135,6 +147,7 @@ public class GradeScreen extends AppCompatActivity {
             TextView credits=   new TextView(this);
             TextView item   =   new TextView(this);
             TextView marks  =   new TextView(this);
+
             //setting the text
             code.setText(code_array[i].toUpperCase());
             code.setGravity(Gravity.CENTER);
@@ -147,17 +160,13 @@ public class GradeScreen extends AppCompatActivity {
 
             marks.setText(String.valueOf(marks_array[i]));
             marks.setGravity(Gravity.CENTER);
-/*
-            code.setLayoutParams(params1);
-            credits.setLayoutParams(params1);
-            item.setLayoutParams(params1);
-            marks.setLayoutParams(params1);
-  */          //the textviews have to be added to the row created
+
+            //the textviews have to be added to the row created
             row.addView(code);
             row.addView(credits);
             row.addView(item);
             row.addView(marks);
-            //row.setLayoutParams(params2);
+
             all_grade_table.addView(row);}
     }
 }

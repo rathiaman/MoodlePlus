@@ -41,24 +41,26 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
+///////////////////////////////////
 // This is the home screen when you are logged in correctly
 // This is screen displays your notifications, assignments, grades in various subjects as well as your courses
-
-// to show your courses, a dropdown list has been enabled which on click opens and show your registered courses
+// To show your courses, a dropdown list has been enabled which on click opens and show your registered courses
 // Notifications, grades and assignments takes you to the new activity of the respective options
+///////////////////////////////////
 
-public class HomeScreen extends AppCompatActivity
-     //   implements ExpandableListView.OnGroupExpandListener, ExpandableListView.OnGroupCollapseListener
-{
+public class HomeScreen extends AppCompatActivity {
 
+    /////////////////////////////////////
+    // Setting up new variables
+    ///////////////////////////////////
     public TextView to_grades;
     public List<String> course_list_with_name_1 = new ArrayList<>();
     public List<String> course_list_codes_1 = new ArrayList<>();
     public List<String> course_list_codes_2 = new ArrayList<>();
 
-
+    ///////////////////////////////////
     // This creates a list for the courses and list opens up if you tap on it
+    ///////////////////////////////////
     HashMap<String, List<String>> my_courses = new HashMap<String, List<String>>();
     List<String> courses_list;
     ExpandableListView my_course_list;
@@ -69,11 +71,15 @@ public class HomeScreen extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        ///////////////////////////////////
+        // Calling the send request function to send the request to the server
+        ///////////////////////////////////
         sendRequest();
 
+        ///////////////////////////////////
+        // Function for the 3 dot button in the top right position
+        ///////////////////////////////////
         getOverflowMenu();
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
@@ -85,22 +91,30 @@ public class HomeScreen extends AppCompatActivity
         } catch (Exception ex) {
             // Ignore
         }
+
+        ///////////////////////////////////
+        // Button Click Listener for grades button has been called
+        ///////////////////////////////////
         onButtonClickListener_grades();
 
     }
 
 
-    private boolean PressTwice = false;
+    ///////////////////////////////////
+    // This function is for back pressed button
+    // If you are logged in and you press back, an alert dialogue box will appear and show Yes and No options
+    // On Clicking Yes, you will exit the application
+    // On Clicking No, nothing will happen and you will be back at Home Screen
+    ///////////////////////////////////
     @Override
     public void onBackPressed(){
-
 
         // calls the alert dialogue box
         AlertDialog.Builder submit_alert = new AlertDialog.Builder(HomeScreen.this);
         submit_alert.setMessage("Are you sure you want to exit !!!").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // calls the function which send the request to the server
+                // calls the function which send the request
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -110,7 +124,7 @@ public class HomeScreen extends AppCompatActivity
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {    // If no is pressed, you are taken back to the login screen
+            public void onClick(DialogInterface dialog, int which) {    // If no is pressed, you are taken back to the Home screen
                 dialog.cancel();
             }
         });
@@ -157,10 +171,9 @@ public class HomeScreen extends AppCompatActivity
         });
     }
 
-
-
+    ///////////////////////////////////
     // This function is for the three dots button where a small menu open up which displays several items like your name, entry number, profile, signout optons
-
+    ///////////////////////////////////
     private void getOverflowMenu() {
 
         try {
@@ -176,7 +189,9 @@ public class HomeScreen extends AppCompatActivity
     }
 
 
+    ///////////////////////////////////
     // This functions inflate the 3 dot menu button with items present in the menu file
+    ///////////////////////////////////
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -185,13 +200,21 @@ public class HomeScreen extends AppCompatActivity
     }
 
 
+    ///////////////////////////////////
+    // This function handles the selection of options from the 3-dot menu option
+    ///////////////////////////////////
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
+
+        ///////////////////////////////////
+        // Function if You click on The Profie Item
+        ///////////////////////////////////
         if (id == R.id.profile) {
             Intent profile_page = new Intent(getApplicationContext(), ProfileScreen.class);
             Integer user_id=  getIntent().getExtras().getInt("user");
@@ -202,8 +225,12 @@ public class HomeScreen extends AppCompatActivity
     }
 
 
+    ///////////////////////////////////
+    // Function to send request to the server
+    ///////////////////////////////////
     private void sendRequest() {
 
+        //Url for Courses list
         String url = "http://10.192.18.219:8000/courses/list.json";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
@@ -220,9 +247,15 @@ public class HomeScreen extends AppCompatActivity
                         Toast.makeText(HomeScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
     }
+
+    ///////////////////////////////////
+    // Getting the response from server, extracting the response and showing it up on the xml file
+    ///////////////////////////////////
     public void PJson(final String response){
 
         try {
