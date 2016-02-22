@@ -8,14 +8,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FF6A00"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical">
+<!--
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="aau.corp.android.app.moodleplus.Particular_thread"
     tools:showIn="@layout/activity_particular_thread">
+-->
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -45,6 +53,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Created at"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/name"
+            android:layout_alignLeft="@+id/created"
+            android:layout_alignStart="@+id/created"
+            android:layout_marginTop="1dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Updated at"
+            android:id="@+id/textView4"
+            android:layout_below="@+id/thready_title"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="100dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="created on"
             android:id="@+id/created"
             android:layout_below="@+id/name"
@@ -52,6 +80,17 @@
             android:layout_alignParentStart="true"
             android:textSize="15dp"
             android:layout_margin="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="updated on"
+            android:id="@+id/update"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_below="@+id/thready_title"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="100dp" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -87,7 +126,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="160dp"
             android:layout_marginLeft="10dp"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentBottom="false"
             android:layout_alignRight="@+id/description"
             android:layout_alignEnd="@+id/description" />
 
@@ -96,42 +135,15 @@
             android:layout_height="wrap_content"
             android:text="Post"
             android:id="@+id/post_comment"
-            android:layout_below="@+id/description"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_marginLeft="25dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Created at"
-            android:id="@+id/textView3"
-            android:layout_below="@+id/name"
-            android:layout_alignLeft="@+id/created"
-            android:layout_alignStart="@+id/created"
-            android:layout_marginTop="1dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Updated at"
-            android:id="@+id/textView4"
-            android:layout_below="@+id/thready_title"
-            android:layout_toRightOf="@+id/textView3"
-            android:layout_marginTop="1dp"
-            android:layout_marginLeft="100dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="updated on"
-            android:id="@+id/update"
-            android:layout_toRightOf="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3"
-            android:layout_below="@+id/thready_title"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="100dp" />
-
+            android:layout_below="@+id/add_comment"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="#c81126"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            />
 
     </RelativeLayout>
     </ScrollView>
