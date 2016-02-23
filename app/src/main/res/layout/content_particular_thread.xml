@@ -15,8 +15,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        >
+        android:id="@+id/scrollView">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -131,25 +131,23 @@
             android:background="#c81126"
             android:textColor="#FFFFFF"
             android:textSize="13dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
             android:layout_alignBottom="@+id/textView2"
             android:layout_toRightOf="@+id/textView4"
             android:layout_toEndOf="@+id/textView4"
             android:layout_alignTop="@+id/textView2" />
 
-
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:id="@+id/course_assig_table"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/course_assig_table"
             android:layout_below="@+id/add_comment"></TableLayout>
 
     </RelativeLayout>
     </ScrollView>
+
 
 
 

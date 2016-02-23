@@ -1,34 +1,22 @@
 package aau.corp.android.app.moodleplus;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +25,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -78,8 +64,6 @@ public class HomeScreen extends AppCompatActivity {
         // Calling the send request function to send the request to the server
         ///////////////////////////////////
 
-
-
         sendRequest();
 
         ///////////////////////////////////
@@ -104,7 +88,6 @@ public class HomeScreen extends AppCompatActivity {
         onButtonClickListener_notification();
 
     }
-
 
     ///////////////////////////////////
     // This function is for back pressed button
@@ -139,30 +122,6 @@ public class HomeScreen extends AppCompatActivity {
         alert.setTitle("Alert !!!");
         alert.show();
 
-
-
-
-/*
-        if(PressTwice){
-
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-            System.exit(0);
-
-        }
-
-        PressTwice = true;
-        Toast.makeText(this, "Press BACK Button again to Exit", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PressTwice = false;
-            }
-        }, 2000);
-*/
     }
 
 
@@ -206,17 +165,24 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
-
     ///////////////////////////////////
     // This functions inflate the 3 dot menu button with items present in the menu file
     ///////////////////////////////////
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu1, menu);
+
+        String first_name_text = getIntent().getExtras().getString("Name");
+        String text = "Hi " + first_name_text;
+
+        MenuItem name_wala_item = menu.findItem(R.id.name_first_menu_display);
+        name_wala_item.setTitle(text);
+        // menu.getItem(R.id.name_first_menu_display).setTitle(text);
+
         return true;
     }
-
 
     ///////////////////////////////////
     // This function handles the selection of options from the 3-dot menu option
@@ -231,15 +197,7 @@ public class HomeScreen extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
 
         String first_name_text = getIntent().getExtras().getString("Name");
-      //  TextView name_textview = (TextView) findViewById(R.id.name_first);
-        // Toast.makeText(HomeScreen.this, first_name_text, Toast.LENGTH_SHORT).show();
-        //name_textview.setText(first_name_text);
         String text = "Hi " + first_name_text;
-        Toast.makeText(HomeScreen.this, ( (TextView) findViewById(R.id.name_first_menu_display)).getText() + " ===", Toast.LENGTH_SHORT).show();
-
-//        ( (TextView) findViewById(R.id.name_first_menu)).setText(text);
-
-
         ///////////////////////////////////
         // Function if You click on The Profie Item
         ///////////////////////////////////
@@ -252,18 +210,8 @@ public class HomeScreen extends AppCompatActivity {
         if (id == R.id.sign_out) {
             signout_method();
         }
-
-/*
-        else if (id == R.id.name){
-            String first_name_text = getIntent().getExtras().getString("Name");
-            TextView name_textview = (TextView) findViewById(R.id.name);
-            Toast.makeText(HomeScreen.this, first_name_text, Toast.LENGTH_SHORT).show();
-            name_textview.setText(first_name_text);
-        }
-*/
         return false;
     }
-
 
     ///////////////////////////////////
     // Function to send request to the server
@@ -283,17 +231,15 @@ public class HomeScreen extends AppCompatActivity {
                     public void onResponse(String response) {
                         messageDialog.hide();
                         PJson(response);
-                       //Toast.makeText(HomeScreen.this, "we get a response for the courses", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(HomeScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeScreen.this, "Network Error", Toast.LENGTH_SHORT).show();
                     }
                 });
-        // Get a RequestQueue
-        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+
         // Add a request (in this example, called stringRequest) to your RequestQueue.
         MySingleton.getInstance(this).addToRequestQueue(request);
     }
@@ -370,7 +316,8 @@ public class HomeScreen extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         try{
-                            finish();
+                            Intent sign_out_intent = new Intent(getApplicationContext(), LoginScreen.class);
+                             startActivity(sign_out_intent);
                         }
                         catch(Exception e){
                             Log.e("u1" , e.toString());
@@ -382,12 +329,10 @@ public class HomeScreen extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("u2" , error.toString());
-                        //Toast.makeText(LoginScreen.this, "You have an error in request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeScreen.this, "Network Error", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-        // Get a RequestQueue
-        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         // Add a request (in this example, called stringRequest) to your RequestQueue.
         MySingleton.getInstance(this).addToRequestQueue(request);
 

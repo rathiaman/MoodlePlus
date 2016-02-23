@@ -131,10 +131,10 @@ public class CourseGradeScreen extends AppCompatActivity {
         TextView marks_text     = new TextView(this);
 
         sno_text.setText("S.No.");
-        name_text.setText("Item Name");
-        weightage_text.setText("Weightage");
-        outof_text.setText("Max. Marks");
-        marks_text.setText("Obtained");
+        name_text.setText(" Item Name ");
+        weightage_text.setText(" Weightage ");
+        outof_text.setText(" Max. Marks ");
+        marks_text.setText(" Obtained");
 
         sno_text.setTypeface(null, Typeface.BOLD);
         name_text.setTypeface(null, Typeface.BOLD);
@@ -165,11 +165,11 @@ public class CourseGradeScreen extends AppCompatActivity {
             lp.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
                      //entering blank row
             TableRow row4 = new TableRow(this);
-            TextView blank_1       = new TextView(this);
-            TextView blank_2     = new TextView(this);
-            TextView blank_3       = new TextView(this);
-            TextView blank_4     = new TextView(this);
-            TextView blank_5       = new TextView(this);
+            TextView blank_1        = new TextView(this);
+            TextView blank_2        = new TextView(this);
+            TextView blank_3        = new TextView(this);
+            TextView blank_4        = new TextView(this);
+            TextView blank_5        = new TextView(this);
             blank_1.setText("  ");
             blank_2.setText("  ");
             blank_3.setText("  ");
@@ -200,6 +200,11 @@ public class CourseGradeScreen extends AppCompatActivity {
             weightage.setText(weightage_array[i]);
             outof.setText(outof_array[i]);
             marks.setText(marks_array[i]);
+
+            weightage.setGravity(Gravity.CENTER_HORIZONTAL);
+            outof.setGravity(Gravity.CENTER_HORIZONTAL);
+            outof.setGravity(Gravity.CENTER_HORIZONTAL);
+            marks.setGravity(Gravity.RIGHT);
 
             //add textview to the row
             row1.addView(smo);

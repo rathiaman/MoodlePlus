@@ -13,6 +13,7 @@
 
             <item android:id="@+id/name_first_menu_display"
                 app:showAsAction="always"
+                android:enabled="false"
                 android:title="@string/name" />
 
             <item android:id="@+id/profile"

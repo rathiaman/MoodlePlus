@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.aman.moodle_try1.CheckThread"
-    tools:showIn="@layout/activity_check_thread">
+    tools:showIn="@layout/activity_check_thread"
+    android:background="#FF6A00">
 
     <ScrollView
         android:layout_width="match_parent"

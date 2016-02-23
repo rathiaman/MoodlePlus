@@ -120,7 +120,7 @@ public class ThreadActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ThreadActivity.this, "You have an error in request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ThreadActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                         //Toast.makeText(LoginScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });

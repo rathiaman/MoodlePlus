@@ -2,31 +2,22 @@ package aau.corp.android.app.moodleplus;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static android.widget.RadioGroup.*;
 
 public class GradeScreen extends AppCompatActivity {
 
@@ -75,12 +66,11 @@ public class GradeScreen extends AppCompatActivity {
                             Log.e("qwerty", response.toString());
                             //mainObject = new JSONObject(response);
                             create_all_data_array(response);
-                            //Toast.makeText(GradeScreen.this, response, Toast.LENGTH_SHORT).show();
                         }
                         catch(Exception e){
                             Log.e("u1" , e.toString());
                             e.printStackTrace();
-                            Toast.makeText(GradeScreen.this, e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GradeScreen.this, "Network Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -93,8 +83,6 @@ public class GradeScreen extends AppCompatActivity {
                     }
                 });
 
-        // Get a RequestQueue
-        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         // Add a request (in this example, called stringRequest) to your RequestQueue.
         MySingleton.getInstance(this).addToRequestQueue(request);
     }

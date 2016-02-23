@@ -1,5 +1,6 @@
 package aau.corp.android.app.moodleplus;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -128,6 +129,9 @@ public class Particular_thread extends AppCompatActivity {
     ///////////////////////////////////
     private void sendParticularThread(){
 
+        final ProgressDialog messageDialog = new ProgressDialog(this);
+        messageDialog.setMessage("sending the information");
+        messageDialog.show();
         //url for grades
         String adder1 = IPAddress.getName();
         String url="http://" + adder1 + "/threads/thread.json/"+Integer.toString(index);
@@ -137,10 +141,8 @@ public class Particular_thread extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("hello1", response.toString());
-                    //    Toast.makeText(Particular_thread.this, response.toString(), Toast.LENGTH_SHORT).show();
-
+                        messageDialog.hide();
                         dowithParticularThread(response);
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -194,7 +196,7 @@ public class Particular_thread extends AppCompatActivity {
 
               // String actual_name = getUserNamefromId(name1);
 
-               name.setText(name1);
+               name.setText(getUserNamefromId(name1));
                thready_title.setText(thready_title1);
                updated.setText(updated1);
                created.setText(created1);
@@ -244,7 +246,7 @@ public class Particular_thread extends AppCompatActivity {
     ///////////////////////////////////
     public String getUserNamefromId(String id){
 
-        final String[]  nameOfId = new String[0];
+        final String[] nameOfId = new String[4];
         String url = "http://" + adder + ":8000/users/user.json/"+ id;
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -256,7 +258,7 @@ public class Particular_thread extends AppCompatActivity {
                             mainObject = new JSONObject(response);
                             JSONObject json_username = mainObject.getJSONObject("user");
 
-                            nameOfId[0] = json_username.getString("first_name");
+                            nameOfId[1] = json_username.getString("first_name");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -271,12 +273,8 @@ public class Particular_thread extends AppCompatActivity {
                     }
                 });
 
-        // Get a RequestQueue
-        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        // Add a request (in this example, called stringRequest) to your RequestQueue.
         MySingleton.getInstance(this).addToRequestQueue(request);
-
-    return nameOfId[0];
+        return nameOfId[1];
     }
 
     public void create_thread_table() {

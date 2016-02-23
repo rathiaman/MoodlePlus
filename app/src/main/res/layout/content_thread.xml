@@ -12,6 +12,15 @@
     tools:context="aau.corp.android.app.moodleplus.ThreadActivity"
     tools:showIn="@layout/activity_thread">
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -62,7 +71,6 @@
         android:layout_below="@+id/description"
         android:layout_centerHorizontal="true" />
 
-
     <TableLayout
         android:id="@+id/all_thread_table"
         android:layout_width="match_parent"
@@ -106,5 +114,7 @@
         </TableRow>
 
     </TableLayout>
+    </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

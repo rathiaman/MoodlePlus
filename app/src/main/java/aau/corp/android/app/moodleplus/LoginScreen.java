@@ -42,13 +42,11 @@ import java.net.CookieManager;
 // This screen also contains extra features like remember password and show password to make it asthetically better and user friendly
 ///////////////////////////////////
 
-
 public class LoginScreen extends AppCompatActivity {
 
     ///////////////////////////////////
     // Declaring variables
     ///////////////////////////////////
-
     ///////////////////////////////////
     // Variables for different palletes of login screen
     ///////////////////////////////////
@@ -57,11 +55,6 @@ public class LoginScreen extends AppCompatActivity {
     public EditText password_text;
     public EditText ip_address_text;
     public CheckBox show_password, remember_password;
-
-    private SharedPreferences loginPreferences;
-    private SharedPreferences.Editor loginPrefsEditor;
-    private Boolean saveLogin;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +137,7 @@ public class LoginScreen extends AppCompatActivity {
 
                 // calls the alert dialogue box
                 AlertDialog.Builder submit_alert = new AlertDialog.Builder(LoginScreen.this);
-                submit_alert.setMessage("Confirm your details !!!").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                submit_alert.setMessage("").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // calls the function which send the request to the server
@@ -158,7 +151,7 @@ public class LoginScreen extends AppCompatActivity {
                 });
 
                 AlertDialog alert = submit_alert.create();
-                alert.setTitle("Alert !!!");
+                alert.setTitle("Confirm Your Details  !!!");
                 alert.show();
 
             }
@@ -198,7 +191,7 @@ public class LoginScreen extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("hello1", response.toString());
-                        Toast.makeText(LoginScreen.this, "request sent", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginScreen.this, "request sent", Toast.LENGTH_SHORT).show();
                         PJson(response);
 
                     }
@@ -206,13 +199,10 @@ public class LoginScreen extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginScreen.this,"Network Error", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-
-        // Get a RequestQueue
-        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         // Add a request (in this example, called stringRequest) to your RequestQueue.
         MySingleton.getInstance(this).addToRequestQueue(request);
 
@@ -244,12 +234,11 @@ public class LoginScreen extends AppCompatActivity {
 
             }
             else{
-                Toast.makeText(LoginScreen.this, "invalid login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginScreen.this, "invalid login. Please Check Yor Login Details", Toast.LENGTH_LONG).show();
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            result = 0;
         }
     }
 
