@@ -55,16 +55,16 @@ public class CourseGradeScreen extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("hello1", response);
-                        try
-                        catch(Exception e){
-                            Log.e("u1" , e.toString());
-                            e.printStackTrace();
-                            Toast.makeText(CourseGradeScreen.this, e.toString(), Toast.LENGTH_SHORT).show();
-                        }{
+                        try{
                             Log.e("qwerty", response.toString());
                             //mainObject = new JSONObject(response);
                             create_all_data_array(response);
                             //Toast.makeText(GradeScreen.this, response, Toast.LENGTH_SHORT).show();
+                        }
+                        catch(Exception e){
+                            Log.e("u1" , e.toString());
+                            e.printStackTrace();
+                            Toast.makeText(CourseGradeScreen.this, e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
