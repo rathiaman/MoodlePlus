@@ -123,7 +123,28 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".CourseGradeScreen"></activity>
+
+        <activity
+            android:name=".CheckThread"
+            android:label="Notification"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="aau.corp.app.CheckThread" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".CourseGradeScreen"
+            android:label="Grades"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="aau.corp.app.CourseGradeScreen" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

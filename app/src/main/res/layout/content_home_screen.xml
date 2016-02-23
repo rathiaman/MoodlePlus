@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:text="Notifications"
         android:textSize="20sp"
-        android:id="@+id/notifications"
+        android:id="@+id/to_notifications"
         android:layout_below="@+id/to_grades"
         android:layout_alignParentLeft="@+id/to_grades"
         android:layout_alignParentStart="@+id/to_grades"

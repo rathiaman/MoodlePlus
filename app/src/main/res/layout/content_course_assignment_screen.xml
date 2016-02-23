@@ -32,7 +32,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#ffffff">
+                android:background="#FF6A00"
+                android:layout_below="@id/course_assig_table">
 
             <TextView
                 android:layout_width="wrap_content"

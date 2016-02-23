@@ -102,7 +102,10 @@ public class ThreadActivity extends AppCompatActivity {
     ///////////////////////////////////
     private void sendThread()
     {
-        String url = "http://" + adder + ":8000/courses/course.json/"+course_code +"/threads";
+        //url for grades
+        String adder1 = IPAddress.getName();
+        String url="http://" + adder1 + "/courses/course.json/"+course_code+"/threads";
+        //String url = "http://" + adder + ":8000/courses/course.json/"+course_code +"/threads";
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -123,9 +126,7 @@ public class ThreadActivity extends AppCompatActivity {
                 });
 
         // Get a RequestQueue
-        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        // Add a request (in this example, called stringRequest) to your RequestQueue.
-        MySingleton.getInstance(this).addToRequestQueue(request);
+         MySingleton.getInstance(this).addToRequestQueue(request);
     }
 
     ///////////////////////////////////
@@ -270,8 +271,6 @@ public class ThreadActivity extends AppCompatActivity {
               });
 
       // Get a RequestQueue
-      RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-      // Add a request (in this example, called stringRequest) to your RequestQueue.
       MySingleton.getInstance(this).addToRequestQueue(request);
 
   }

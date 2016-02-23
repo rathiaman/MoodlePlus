@@ -1,5 +1,6 @@
 package aau.corp.android.app.moodleplus;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -43,16 +44,23 @@ public class GradeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grade_screen);
 
+
         ///////////////////////////////////
         // Calling the function to send the request
         ///////////////////////////////////
         send_data_request();
+
     }
 
     ///////////////////////////////////
     // This function is send the request to the server
     ///////////////////////////////////
     public void send_data_request(){
+
+        final ProgressDialog messageDialog = new ProgressDialog(this);
+        messageDialog.setMessage("sending the information");
+        messageDialog.show();
+
         //url for grades
         String adder1 = IPAddress.getName();
         String url="http://" + adder1 + "/default/grades.json";
@@ -61,6 +69,7 @@ public class GradeScreen extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        messageDialog.hide();
                         Log.e("hello1", response);
                         try {
                             Log.e("qwerty", response.toString());

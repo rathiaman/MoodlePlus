@@ -1,5 +1,6 @@
 package aau.corp.android.app.moodleplus;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -54,6 +55,7 @@ public class HomeScreen extends AppCompatActivity {
     // Setting up new variables
     ///////////////////////////////////
     public TextView to_grades;
+    public TextView to_notification;
     public List<String> course_list_with_name_1 = new ArrayList<>();
     public List<String> course_list_codes_1 = new ArrayList<>();
     public List<String> course_list_codes_2 = new ArrayList<>();
@@ -75,6 +77,9 @@ public class HomeScreen extends AppCompatActivity {
         ///////////////////////////////////
         // Calling the send request function to send the request to the server
         ///////////////////////////////////
+
+
+
         sendRequest();
 
         ///////////////////////////////////
@@ -96,6 +101,7 @@ public class HomeScreen extends AppCompatActivity {
         // Button Click Listener for grades button has been called
         ///////////////////////////////////
         onButtonClickListener_grades();
+        onButtonClickListener_notification();
 
     }
 
@@ -165,8 +171,20 @@ public class HomeScreen extends AppCompatActivity {
         to_grades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent grade_page = new Intent(HomeScreen.this, GradeScreen.class);
+                Intent grade_page = new Intent(getApplicationContext(), GradeScreen.class);
                 startActivity(grade_page);
+            }
+        });
+    }
+
+
+    private void onButtonClickListener_notification() {
+        to_notification = (TextView) findViewById(R.id.to_notifications);
+        to_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent notification_page = new Intent(getApplication(), CheckThread.class);
+                startActivity(notification_page);
             }
         });
     }
@@ -231,6 +249,9 @@ public class HomeScreen extends AppCompatActivity {
             profile_page.putExtra("user",user_id);
             startActivity(profile_page);
         }
+        if (id == R.id.sign_out) {
+            signout_method();
+        }
 
 /*
         else if (id == R.id.name){
@@ -249,6 +270,9 @@ public class HomeScreen extends AppCompatActivity {
     ///////////////////////////////////
     private void sendRequest() {
 
+        final ProgressDialog messageDialog = new ProgressDialog(this);
+        messageDialog.setMessage("sending the information");
+        messageDialog.show();
         //Url for Courses list
         String adder1 = IPAddress.getName();
         String url = "http://" + adder1 + "/courses/list.json";
@@ -257,6 +281,7 @@ public class HomeScreen extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        messageDialog.hide();
                         PJson(response);
                        //Toast.makeText(HomeScreen.this, "we get a response for the courses", Toast.LENGTH_SHORT).show();
                     }
@@ -333,5 +358,39 @@ public class HomeScreen extends AppCompatActivity {
     }
 
 
+    public void signout_method(){
+        //url for grades
+        String adder1 = IPAddress.getName();
+        String url="http://" + adder1 + "/default/logout.json";
+        //String url="http://10.192.18.219:8000//courses/course.json/"+course_code+"/grades";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try{
+                            finish();
+                        }
+                        catch(Exception e){
+                            Log.e("u1" , e.toString());
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("u2" , error.toString());
+                        //Toast.makeText(LoginScreen.this, "You have an error in request", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(request);
+
+    }
 }
 

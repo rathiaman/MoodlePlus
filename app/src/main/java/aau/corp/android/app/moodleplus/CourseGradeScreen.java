@@ -42,13 +42,11 @@ public class CourseGradeScreen extends AppCompatActivity {
     }
 
     private void send_data_request(String course_code) {
-        //url for grades
-/*
 
-        EditText ip_address_text = (EditText) findViewById(R.id.edit_text_IPAddress);
-        final String adder1 = ip_address_text.getText().toString();
-*/
-        String url="http://10.192.18.219:8000//courses/course.json/"+course_code+"/grades";
+        //url for grades
+        String adder1 = IPAddress.getName();
+        String url="http://" + adder1 + "/courses/course.json/"+course_code+"/grades";
+        //String url="http://10.192.18.219:8000//courses/course.json/"+course_code+"/grades";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
