@@ -184,7 +184,7 @@ public class LoginScreen extends AppCompatActivity {
         ip_address_text = (EditText) findViewById(R.id.edit_text_IPAddress);
         IPAddress.setName(ip_address_text.getText().toString());
         String adder1 = IPAddress.getName();
-        Toast.makeText(LoginScreen.this, adder1, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(LoginScreen.this, adder1, Toast.LENGTH_SHORT).show();
 
         String url="http://" + adder1 + "/default/login.json?userid=cs1110200&password=john";
         //Toast.makeText(LoginScreen.this, url, Toast.LENGTH_SHORT).show();
@@ -236,9 +236,10 @@ public class LoginScreen extends AppCompatActivity {
                 // Toast.makeText(MainActivity.this, myinteger, Toast.LENGTH_SHORT).show();
                 JSONObject user = Object.getJSONObject("user");
                 Integer user_id = user.getInt("id");
-                Intent in = new Intent(getApplicationContext(),
-                        HomeScreen.class);
+                String first_name = user.getString("first_name");
+                Intent in = new Intent(getApplicationContext(), HomeScreen.class);
                 in.putExtra("user", user_id);
+                in.putExtra("Name", first_name);
                 startActivity(in);
 
             }

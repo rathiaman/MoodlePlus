@@ -212,6 +212,16 @@ public class HomeScreen extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
 
+        String first_name_text = getIntent().getExtras().getString("Name");
+      //  TextView name_textview = (TextView) findViewById(R.id.name_first);
+        // Toast.makeText(HomeScreen.this, first_name_text, Toast.LENGTH_SHORT).show();
+        //name_textview.setText(first_name_text);
+        String text = "Hi " + first_name_text;
+        Toast.makeText(HomeScreen.this, ( (TextView) findViewById(R.id.name_first_menu_display)).getText() + " ===", Toast.LENGTH_SHORT).show();
+
+//        ( (TextView) findViewById(R.id.name_first_menu)).setText(text);
+
+
         ///////////////////////////////////
         // Function if You click on The Profie Item
         ///////////////////////////////////
@@ -221,6 +231,15 @@ public class HomeScreen extends AppCompatActivity {
             profile_page.putExtra("user",user_id);
             startActivity(profile_page);
         }
+
+/*
+        else if (id == R.id.name){
+            String first_name_text = getIntent().getExtras().getString("Name");
+            TextView name_textview = (TextView) findViewById(R.id.name);
+            Toast.makeText(HomeScreen.this, first_name_text, Toast.LENGTH_SHORT).show();
+            name_textview.setText(first_name_text);
+        }
+*/
         return false;
     }
 

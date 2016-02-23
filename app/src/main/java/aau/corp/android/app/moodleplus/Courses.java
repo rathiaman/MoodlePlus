@@ -193,6 +193,7 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
                 drawerLayout.openDrawer(listview1);
             }
         }
+
         return super.onOptionsItemSelected(item);
     }
 

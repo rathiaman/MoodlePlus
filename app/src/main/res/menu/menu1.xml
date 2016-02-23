@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/empty"
+        android:id="@+id/menu_items_list"
         android:title="@string/options"
         android:orderInCategory="101"
         app:showAsAction="always"
@@ -11,7 +11,7 @@
         <menu>
 
 
-            <item android:id="@+id/name"
+            <item android:id="@+id/name_first_menu_display"
                 app:showAsAction="always"
                 android:title="@string/name" />
 
