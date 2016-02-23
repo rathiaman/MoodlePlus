@@ -10,9 +10,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         /////////////////////////////
-        // Login Screen Activity   //
+        // Login Screen Activity //
         /////////////////////////////
         <activity
             android:name=".LoginScreen"
@@ -23,10 +22,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         /////////////////////////////
-        // Splash Screen Activity   //
+        // Splash Screen Activity //
         /////////////////////////////
         <activity android:name=".Splash">
             <intent-filter>
@@ -35,10 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         /////////////////////////////
-        // Home Screen Activity   //
+        // Home Screen Activity //
         /////////////////////////////
         <activity
             android:name=".HomeScreen"
@@ -50,95 +45,85 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
-
         /////////////////////////////
-        // Courses Screen Activity   //
+        // Courses Screen Activity //
         /////////////////////////////
-        <activity android:name=".Courses"
-            android:theme="@style/AppTheme"
-            android:label="@string/courses">
+        <activity
+            android:name=".Courses"
+            android:label="@string/courses"
+            android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="aau.corp.android.app.Courses"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="aau.corp.android.app.Courses" />
 
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
-
         /////////////////////////////
-        // Overall Grades Screen Activity   //
+        // Overall Grades Screen Activity //
         /////////////////////////////
-        <activity android:name=".GradeScreen"
+        <activity
+            android:name=".GradeScreen"
             android:label="Grades"
             android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="aau.corp.android.app.GradeScreen"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="aau.corp.android.app.GradeScreen" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
-
         /////////////////////////////
-        // Profile Screen Activity   //
+        // Profile Screen Activity //
         /////////////////////////////
-        <activity android:name=".ProfileScreen"
+        <activity
+            android:name=".ProfileScreen"
             android:label="Profile"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="aau.corp.app.ProfileScreen" />
 
-        <intent-filter>
-                <action android:name="aau.corp.app.ProfileScreen"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         /////////////////////////////
-        // Course Assignment Screen Activity   //
+        // Course Assignment Screen Activity //
         /////////////////////////////
-        <activity android:name=".CourseAssignmentScreen"
+        <activity
+            android:name=".CourseAssignmentScreen"
             android:label="Assignments"
             android:theme="@style/AppTheme">
-
             <intent-filter>
-                <action android:name="aau.corp.app.CourseAssignmentScreen"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="aau.corp.app.CourseAssignmentScreen" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         /////////////////////////////
-        // Thread Screen Activity   //
+        // Thread Screen Activity //
         /////////////////////////////
-        <activity android:name=".ThreadActivity"
+        <activity
+            android:name=".ThreadActivity"
             android:label="Threads"
             android:theme="@style/AppTheme">
-
             <intent-filter>
-                <action android:name="aau.corp.app.ThreadActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="aau.corp.app.ThreadActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         /////////////////////////////
-        // Particular Thread Screen Activity   //
+        // Particular Thread Screen Activity //
         /////////////////////////////
-        <activity android:name=".Particular_thread"
+        <activity
+            android:name=".Particular_thread"
             android:label="Threads"
             android:theme="@style/AppTheme">
-
             <intent-filter>
-                <action android:name="aau.corp.app.ParticularThread"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="aau.corp.app.ParticularThread" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
-
+        <activity android:name=".CourseGradeScreen"></activity>
     </application>
 
 </manifest>

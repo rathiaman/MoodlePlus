@@ -40,7 +40,7 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
     List<String> dummy;
 
     //ujjawal
-    public Button assignment_button, thread_button;
+    public Button assignment_button, thread_button, grade_button;
     int course_index;
     String course_code;
 
@@ -86,8 +86,8 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
         ///////////////////////////////////
         onButtonClickListener_course_assignment();
         onButtonClickListener_course_thread();
+        onButtonClickListener_course_grade();
     }
-
 
     /////////////////////////////////////
     // This is a function for the selection of any item from the navigation drawer
@@ -105,14 +105,12 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
             Intent take_to_home = new Intent(getApplicationContext(), HomeScreen.class);
             startActivity(take_to_home);
         }
-
         ///////////////////////////////////
         // Else its calling for the details of the respective course
         ///////////////////////////////////
         course_index = i - 1;
         String response = getIntent().getStringExtra("response");
         show_course_detail(course_index, response);
-
     }
 
     ///////////////////////////////////
@@ -133,7 +131,6 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
         });
     }
 
-
     ///////////////////////////////////
     // Function for Button Click Listener ----- Course Thread Button
     ///////////////////////////////////
@@ -153,13 +150,29 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
     }
 
     ///////////////////////////////////
+    // Function for Button Click Listener ----- Course grade Button
     ///////////////////////////////////
+    private void onButtonClickListener_course_grade(){
+        grade_button = (Button) findViewById(R.id.grade_button);
+        grade_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ///////////////////////////////////
+                // This new Intent takes us to a new activity where Course Grades are displayed
+                ///////////////////////////////////
+                Intent course_assignment = new Intent(getApplicationContext(), CourseGradeScreen.class);
+                course_assignment.putExtra("course_code", course_code);
+                startActivity(course_assignment);
+            }
+        });
+    }
+    ///////////////////////////////////
+
     ///////////////////////////////////
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();
     }
-
 
     ///////////////////////////////////
     // This function is a listener for the Top Left 3 lines from the Navigation Drawer
@@ -182,7 +195,6 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     ///////////////////////////////////
     // Item Click Listener for the item selected from the navigation drawer
@@ -249,4 +261,5 @@ public class Courses extends AppCompatActivity implements AdapterView.OnItemClic
         }
 
     }
+
 }

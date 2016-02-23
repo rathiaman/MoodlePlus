@@ -124,7 +124,13 @@ public class GradeScreen extends AppCompatActivity {
                                 childJSONObject.getInt("weightage");
 
             }
-            create_grade_table();
+            if(code_array.length!=0){
+                create_grade_table();
+            }
+            else{
+                TableLayout all_grade_table = (TableLayout) findViewById(R.id.all_grade_table);
+                all_grade_table.removeAllViews();
+            }
         }catch(JSONException e){
             e.printStackTrace();
         }
