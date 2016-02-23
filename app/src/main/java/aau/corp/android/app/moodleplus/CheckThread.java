@@ -49,7 +49,8 @@ public class CheckThread extends AppCompatActivity {
 
     private void sendNotification() {
 
-        String url = "http://" + adder + ":8000//default/notifications.json";
+        String adder1 = IPAddress.getName();
+        String url = "http://" + adder1 + "/default/notifications.json";
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -64,7 +65,7 @@ public class CheckThread extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CheckThread.this, "You have an error in request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CheckThread.this, error.toString(), Toast.LENGTH_SHORT).show();
 
                     }
                 });

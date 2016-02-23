@@ -250,7 +250,8 @@ public class ThreadActivity extends AppCompatActivity {
       final String thread_title1 = thread_title.getText().toString();
       final String description1 = description.getText().toString();
 
-      String url = "http://" + adder + ":8000/threads/new.json?title=" + thread_title1 +"&description=" + description1 + "&course_code=" + course_code;
+        String adder1 = IPAddress.getName();
+        String url = "http://" + adder1 + "/threads/new.json?title=" + thread_title1 +"&description=" + description1 + "&course_code=" + course_code;
       StringRequest request = new StringRequest(Request.Method.GET, url,
               new Response.Listener<String>() {
                   @Override
