@@ -135,15 +135,15 @@
             android:layout_height="wrap_content"
             android:text="Post"
             android:id="@+id/post_comment"
-            android:layout_below="@+id/add_comment"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
             android:background="#c81126"
             android:textColor="#FFFFFF"
             android:textSize="15dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            />
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_toRightOf="@+id/textView4"
+            android:layout_toEndOf="@+id/textView4"
+            android:layout_alignTop="@+id/textView2" />
 
     </RelativeLayout>
     </ScrollView>

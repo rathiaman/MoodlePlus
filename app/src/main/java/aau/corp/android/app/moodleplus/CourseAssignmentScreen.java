@@ -2,17 +2,11 @@ package aau.corp.android.app.moodleplus;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,7 +17,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -117,7 +110,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
                 course_assig_textveiw_1.setText("You have no assignments for this course");
             }
             else {
-                create_grade_table();
+                create_assignment_table();
             }
         }catch(JSONException e){
             e.printStackTrace();
@@ -189,7 +182,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
         }
     }
 
-    public void create_grade_table(){
+    public void create_assignment_table(){
         /* Find Tablelayout defined in main.xml */
         TableLayout course_assig_table = (TableLayout) findViewById(R.id.course_assig_table);
         course_assig_table.setColumnShrinkable(1,true);
@@ -247,6 +240,8 @@ public class CourseAssignmentScreen extends AppCompatActivity {
             row1.addView(sno);
             row1.addView(name);
             //set the layoout parameters for the row
+
+            row1.setGravity(Gravity.CENTER);
             course_assig_table.addView(row1);
 ///////////////////////////////////////////////////////
             TableRow row2 = new TableRow(this);
@@ -271,6 +266,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
             row2.addView(start_text);
             row2.addView(start);
             row2.setLayoutParams(lp2);
+            row1.setGravity(Gravity.CENTER);
             course_assig_table.addView(row2);
 ////////////////////////////////////////////////////////////////
             TableRow row3 = new TableRow(this);
@@ -294,6 +290,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
             row3.addView(end_text);
             row3.addView(end);
             row3.setLayoutParams(lp3);
+            row3.setGravity(Gravity.CENTER);
             course_assig_table.addView(row3);
 /////////////////////////////////////
             //entering blank row
@@ -308,6 +305,7 @@ public class CourseAssignmentScreen extends AppCompatActivity {
             row4.addView(blank_2);
             row4.addView(blank_3);
             row3.setLayoutParams(lp3);
+            row3.setGravity(Gravity.CENTER);
             course_assig_table.addView(row4);
         }
 

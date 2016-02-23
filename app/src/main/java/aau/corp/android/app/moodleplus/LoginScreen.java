@@ -176,9 +176,9 @@ public class LoginScreen extends AppCompatActivity {
         messageDialog.show();
 
         //obtain the string value for username and password field
-        final String username = findViewById(R.id.edit_text_username).toString().trim();
+        /*final String username = ( (EditText) findViewById(R.id.edit_text_username).getText()).toString().trim();
         final String password = findViewById(R.id.edit_text_password).toString().trim();
-        //flag for sending to the home page
+       */ //flag for sending to the home page
         int flag = 0;
 
         ip_address_text = (EditText) findViewById(R.id.edit_text_IPAddress);
