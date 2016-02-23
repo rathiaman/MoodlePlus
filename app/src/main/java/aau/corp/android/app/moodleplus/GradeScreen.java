@@ -54,7 +54,8 @@ public class GradeScreen extends AppCompatActivity {
     ///////////////////////////////////
     public void send_data_request(){
         //url for grades
-        String url="http://10.192.18.219:8000/default/grades.json";
+        String adder1 = IPAddress.getName();
+        String url="http://" + adder1 + "/default/grades.json";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

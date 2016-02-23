@@ -52,7 +52,8 @@ public class ProfileScreen extends AppCompatActivity {
     ///////////////////////////////////
     public void send_data_request( int user_id){
         //url for grades
-        String url="http://10.192.18.219:8000//users/user.json/"+String.valueOf(user_id);
+        String adder1 = IPAddress.getName();
+        String url="http://" + adder1 + "//users/user.json/"+String.valueOf(user_id);
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

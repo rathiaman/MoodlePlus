@@ -182,11 +182,14 @@ public class LoginScreen extends AppCompatActivity {
         int flag = 0;
 
         ip_address_text = (EditText) findViewById(R.id.edit_text_IPAddress);
-        final String adder1 = ip_address_text.getText().toString();
-      //  Toast.makeText(LoginScreen.this, adder1, Toast.LENGTH_SHORT).show();
+        IPAddress.setName(ip_address_text.getText().toString());
+        String adder1 = IPAddress.getName();
+        Toast.makeText(LoginScreen.this, adder1, Toast.LENGTH_SHORT).show();
 
-        String url="http://" + adder1 + ":8000/default/login.json?userid=cs1110200&password=john";
-       // String url="http://tapi.cse.iitd.ernet.in:1805/default/login.json?userid=" + username + "&password=" + password;
+        String url="http://" + adder1 + "/default/login.json?userid=cs1110200&password=john";
+        //Toast.makeText(LoginScreen.this, url, Toast.LENGTH_SHORT).show();
+
+        // String url="http://tapi.cse.iitd.ernet.in:1805/default/login.json?userid=" + username + "&password=" + password;
         //   String url = "http://10.192.7.98:8000/default/login.json?userid=" + username + "&password=" + password;
         //String url = "http://headers.jsontest.com/";
 

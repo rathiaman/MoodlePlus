@@ -50,7 +50,8 @@ public class ThreadActivity extends AppCompatActivity {
     ///////////////////////////////////
     // IP Address
     ///////////////////////////////////
-    String adder = "10.192.18.219";
+    String adder = IPAddress.getName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class ThreadActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("hello1", response.toString());
-                        Toast.makeText(ThreadActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(ThreadActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
 
                        dowithThread(response);
 
@@ -155,7 +156,7 @@ public class ThreadActivity extends AppCompatActivity {
 
             /////////////
 
-            Toast.makeText(ThreadActivity.this,"size" + title_array.length, Toast.LENGTH_SHORT ).show();
+//            Toast.makeText(ThreadActivity.this,"size" + title_array.length, Toast.LENGTH_SHORT ).show();
 
             create_thread_table();
         }catch (JSONException e){
@@ -214,7 +215,7 @@ public class ThreadActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(ThreadActivity.this,"Clicked",Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(ThreadActivity.this,"Clicked",Toast.LENGTH_SHORT).show();
 
                     Intent in = new Intent(ThreadActivity.this,Particular_thread.class);
 

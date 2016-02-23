@@ -46,7 +46,7 @@ public class Particular_thread extends AppCompatActivity {
     ///////////////////////////////////
     // IP address
     ///////////////////////////////////
-    String adder = "10.192.18.219";
+    String adder = IPAddress.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class Particular_thread extends AppCompatActivity {
         ///////////////////////////////////
         course_code = extras.getString("EXTRA_COURSE_CODE");
         index = extras.getInt("EXTRA_THREAD_ID");
-        Toast.makeText(Particular_thread.this, Integer.toString(index), Toast.LENGTH_SHORT ).show();
+    //    Toast.makeText(Particular_thread.this, Integer.toString(index), Toast.LENGTH_SHORT ).show();
 
         ///////////////////////////////////
         //API call to get the details of page
@@ -101,7 +101,7 @@ public class Particular_thread extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("hello1", response.toString());
-                        Toast.makeText(Particular_thread.this, response.toString(), Toast.LENGTH_SHORT).show();
+                  //      Toast.makeText(Particular_thread.this, response.toString(), Toast.LENGTH_SHORT).show();
                         //dialog box
                     }
                 },
@@ -129,7 +129,7 @@ public class Particular_thread extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("hello1", response.toString());
-                        Toast.makeText(Particular_thread.this, response.toString(), Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(Particular_thread.this, response.toString(), Toast.LENGTH_SHORT).show();
 
                         dowithParticularThread(response);
 

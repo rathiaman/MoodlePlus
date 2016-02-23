@@ -55,7 +55,8 @@ public class CourseAssignmentScreen extends AppCompatActivity {
 
     public void send_data_request(){
         //url for grades
-        String url="http://10.192.18.219:8000//courses/course.json/"+course_code+"/assignments";
+        String adder1 = IPAddress.getName();
+        String url="http://" + adder1 + "//courses/course.json/"+course_code+"/assignments";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -126,7 +127,9 @@ public class CourseAssignmentScreen extends AppCompatActivity {
 
     public void send_data_request_1(int  assignment_number ){
         //url for grades
-        String url="http://10.192.18.219:8000//courses/assignment.json/"+String.valueOf(assignment_number);
+
+        String adder1 = IPAddress.getName();
+        String url="http://" + adder1 + "//courses/assignment.json/"+String.valueOf(assignment_number);
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

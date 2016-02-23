@@ -231,7 +231,8 @@ public class HomeScreen extends AppCompatActivity {
     private void sendRequest() {
 
         //Url for Courses list
-        String url = "http://10.192.18.219:8000/courses/list.json";
+        String adder1 = IPAddress.getName();
+        String url = "http://" + adder1 + "/courses/list.json";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
