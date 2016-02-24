@@ -1,13 +1,9 @@
 package aau.corp.android.app.moodleplus;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -23,7 +19,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +66,7 @@ public class Particular_thread extends AppCompatActivity {
         // Extracting from intent bundle
         ///////////////////////////////////
         course_code = extras.getString("EXTRA_COURSE_CODE");
+        getSupportActionBar().setTitle("Threads: " + course_code.toUpperCase());
         index = extras.getInt("EXTRA_THREAD_ID");
     //    Toast.makeText(Particular_thread.this, Integer.toString(index), Toast.LENGTH_SHORT ).show();
 
@@ -86,6 +82,8 @@ public class Particular_thread extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 submitNewComment();
+
+                comment.setText("");
             }
         });
 
@@ -98,25 +96,41 @@ public class Particular_thread extends AppCompatActivity {
 
         final String post_comment = comment.getText().toString();
 
+        final ProgressDialog messageDialog = new ProgressDialog(this);
+        messageDialog.setMessage("sending the information");
+        messageDialog.show();
 
         //url for grades
         String adder1 = IPAddress.getName();
         String url="http://" + adder1 + "//threads/post_comment.json?thread_id=" + String.valueOf(index) + "&description=" + post_comment;
-        //String url = "http://" + adder + ":8000//threads/post_comment.json?thread_id=" + String.valueOf(index) + "&description=" + post_comment;
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("hello1", response.toString());
+                        messageDialog.hide();
                   //      Toast.makeText(Particular_thread.this, response.toString(), Toast.LENGTH_SHORT).show();
                         //dialog box
+                        JSONObject mainObject ;
+
+                        try {
+                            mainObject = new JSONObject(response);
+                            String json_success = mainObject.getString("success");
+                            if (json_success == "true")
+                            {Toast.makeText(Particular_thread.this, "Comment Posted. Reload ", Toast.LENGTH_SHORT).show();}
+                            else
+                            {Toast.makeText(Particular_thread.this, "Unable to Post Comment ", Toast.LENGTH_SHORT).show();}
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Particular_thread.this, "You have an error in request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Particular_thread.this, "Network Error", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -148,7 +162,7 @@ public class Particular_thread extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Particular_thread.this, "You have an error in request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Particular_thread.this, "Network Error", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -188,19 +202,18 @@ public class Particular_thread extends AppCompatActivity {
             ///////////////////////////////////
             // giving ids to text fields
             ///////////////////////////////////
-            TextView name = (TextView)findViewById(R.id.name);
+
             TextView thready_title = (TextView)findViewById(R.id.thready_title);
             TextView updated = (TextView)findViewById(R.id.update);
             TextView created = (TextView)findViewById(R.id.created);
             TextView description =(TextView)findViewById(R.id.description);
 
-              // String actual_name = getUserNamefromId(name1);
+            getUserNamefromId(name1);
 
-               name.setText(getUserNamefromId(name1));
-               thready_title.setText(thready_title1);
-               updated.setText(updated1);
-               created.setText(created1);
-               description.setText(description1);
+            thready_title.setText(thready_title1);
+            updated.setText(updated1);
+            created.setText(created1);
+            description.setText(description1);
 
             JSONArray json_array_comments = mainObject.getJSONArray("comments");
             JSONArray json_array_time = mainObject.getJSONArray("times_readable");
@@ -244,10 +257,9 @@ public class Particular_thread extends AppCompatActivity {
     ///////////////////////////////////
     //
     ///////////////////////////////////
-    public String getUserNamefromId(String id){
+    public void getUserNamefromId(String id){
 
-        final String[] nameOfId = new String[4];
-        String url = "http://" + adder + ":8000/users/user.json/"+ id;
+        String url = "http://" + adder + "/users/user.json/"+ id;
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -257,8 +269,8 @@ public class Particular_thread extends AppCompatActivity {
                         try {
                             mainObject = new JSONObject(response);
                             JSONObject json_username = mainObject.getJSONObject("user");
-
-                            nameOfId[1] = json_username.getString("first_name");
+                            TextView theady_user_name = (TextView)findViewById(R.id.theady_user_name);
+                            theady_user_name.setText(json_username.getString("first_name"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -274,13 +286,10 @@ public class Particular_thread extends AppCompatActivity {
                 });
 
         MySingleton.getInstance(this).addToRequestQueue(request);
-        return nameOfId[1];
     }
 
     public void create_thread_table() {
         //Find Tablelayout defined in main.xml
-
-        Toast.makeText(Particular_thread.this, "table", Toast.LENGTH_SHORT).show();
 
         TableLayout course_assig_table = (TableLayout) findViewById(R.id.course_assig_table);
         course_assig_table.setColumnShrinkable(2, true);
@@ -395,7 +404,5 @@ public class Particular_thread extends AppCompatActivity {
         }
 
     }
-
-
 
 }

@@ -5,6 +5,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -48,7 +55,6 @@ public class CheckThread extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("hello1", response.toString());
-
                         messageDialog.hide();
                         //Toast.makeText(CheckThread.this, response.toString(), Toast.LENGTH_SHORT).show();
                         dowithNoification(response);
@@ -89,7 +95,8 @@ public class CheckThread extends AppCompatActivity {
                 create_notification_table();
             }
             else{
-                //////////////////enter what to if we have no notification thread
+                TextView notification_text_message = (TextView) findViewById(R.id.notification_text_message);
+                notification_text_message.setText("You have no new notification");
             }
 
         } catch (JSONException e) {
@@ -100,8 +107,6 @@ public class CheckThread extends AppCompatActivity {
 
     //creates the table for displaying hte notification
     public void create_notification_table() {
-
-        Toast.makeText(CheckThread.this, "table", Toast.LENGTH_SHORT).show();
 
         TableLayout course_assig_table = (TableLayout) findViewById(R.id.table_notification);
         course_assig_table.setColumnShrinkable(1, true);
@@ -123,7 +128,18 @@ public class CheckThread extends AppCompatActivity {
             TextView description = new TextView(this);
             //setting the values of textview
             sno.setText(String.valueOf(i + 1) + ". ");
-            description.setText(Html.fromHtml(description_notify_array[i]));
+            //description.setText(Html.fromHtml(description_notify_array[i]));
+/////ujjawal
+
+            Spannable s = (Spannable) Html.fromHtml(description_notify_array[i]);
+            for (URLSpan u: s.getSpans(0, s.length(), URLSpan.class)) {
+                s.setSpan(new UnderlineSpan() {
+                    public void updateDrawState(TextPaint tp) {
+                        tp.setUnderlineText(false);
+                    }
+                }, s.getSpanStart(u), s.getSpanEnd(u), 0);
+            }
+            description.setText(s);
 
             //for giving span to the name
             TableRow.LayoutParams trParam = new TableRow.LayoutParams();

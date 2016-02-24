@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -54,7 +55,7 @@ public class LoginScreen extends AppCompatActivity {
     public Button login_button;
     public EditText password_text;
     public EditText ip_address_text;
-    public CheckBox show_password, remember_password;
+    public CheckBox show_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +84,7 @@ public class LoginScreen extends AppCompatActivity {
                 }
             }
         });
-
-        remember_password = (CheckBox) findViewById(R.id.checkBox_save_password);
-
     }
-
-
     ///////////////////////////////////
     // This function is for back pressed button
     // If you press back, an alert dialogue box will appear and show Yes and No options
@@ -122,7 +118,6 @@ public class LoginScreen extends AppCompatActivity {
         alert.show();
 
     }
-
     ///////////////////////////////////
     // This is the Button Click Listener for the login button
     // On clicking the login button, a dialogue box is created which asks for confirmaton
@@ -156,8 +151,7 @@ public class LoginScreen extends AppCompatActivity {
 
             }
         });
- }
-
+    }
     ///////////////////////////////////
     //function defined for sending the string request
     ///////////////////////////////////
@@ -168,23 +162,19 @@ public class LoginScreen extends AppCompatActivity {
         messageDialog.setMessage("Logging in");
         messageDialog.show();
 
-        //obtain the string value for username and password field
-        /*final String username = ( (EditText) findViewById(R.id.edit_text_username).getText()).toString().trim();
-        final String password = findViewById(R.id.edit_text_password).toString().trim();
-       */ //flag for sending to the home page
-        int flag = 0;
-
         ip_address_text = (EditText) findViewById(R.id.edit_text_IPAddress);
         IPAddress.setName(ip_address_text.getText().toString());
         String adder1 = IPAddress.getName();
-      //  Toast.makeText(LoginScreen.this, adder1, Toast.LENGTH_SHORT).show();
 
-        String url="http://" + adder1 + "/default/login.json?userid=cs1110200&password=john";
-        //Toast.makeText(LoginScreen.this, url, Toast.LENGTH_SHORT).show();
+        TextView password_text_for_login = (EditText) findViewById(R.id.edit_text_password);
+        TextView user_name_for_login     = (EditText) findViewById(R.id.edit_text_username);
 
-        // String url="http://tapi.cse.iitd.ernet.in:1805/default/login.json?userid=" + username + "&password=" + password;
-        //   String url = "http://10.192.7.98:8000/default/login.json?userid=" + username + "&password=" + password;
-        //String url = "http://headers.jsontest.com/";
+        String password_text_for_login_string   = password_text_for_login.getText().toString().trim();
+        String user_name_for_login_string       = user_name_for_login.getText().toString().trim();
+
+        //String url="http://" + adder1 + "/default/login.json?userid=cs1110200&password=john";
+
+        String url="http://" + adder1 + "/default/login.json?userid="+ user_name_for_login_string +"&password="+ password_text_for_login_string;
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -223,10 +213,15 @@ public class LoginScreen extends AppCompatActivity {
                 result =1 ;
             }
             if (result == 1) {
+
+               // String first_name_text = getIntent().getExtras().getString("Name");
+
+
                 // Toast.makeText(MainActivity.this, myinteger, Toast.LENGTH_SHORT).show();
                 JSONObject user = Object.getJSONObject("user");
                 Integer user_id = user.getInt("id");
                 String first_name = user.getString("first_name");
+                Name_Class.setName("Hi " + first_name);
                 Intent in = new Intent(getApplicationContext(), HomeScreen.class);
                 in.putExtra("user", user_id);
                 in.putExtra("Name", first_name);

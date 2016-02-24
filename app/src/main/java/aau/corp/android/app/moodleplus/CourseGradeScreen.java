@@ -1,5 +1,6 @@
 package aau.corp.android.app.moodleplus;
 
+import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +44,10 @@ public class CourseGradeScreen extends AppCompatActivity {
 
     private void send_data_request(String course_code) {
 
+        final ProgressDialog messageDialog = new ProgressDialog(this);
+        messageDialog.setMessage("sending the information");
+        messageDialog.show();
+
         //url for grades
         String adder1 = IPAddress.getName();
         String url="http://" + adder1 + "/courses/course.json/"+course_code+"/grades";
@@ -55,6 +60,7 @@ public class CourseGradeScreen extends AppCompatActivity {
                         Log.e("hello1", response);
                         try{
                             Log.e("qwerty", response.toString());
+                            messageDialog.hide();
                             //mainObject = new JSONObject(response);
                             create_all_data_array(response);
                             //Toast.makeText(GradeScreen.this, response, Toast.LENGTH_SHORT).show();

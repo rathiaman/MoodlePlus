@@ -174,8 +174,7 @@ public class HomeScreen extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu1, menu);
 
-        String first_name_text = getIntent().getExtras().getString("Name");
-        String text = "Hi " + first_name_text;
+        String text = Name_Class.getName();
 
         MenuItem name_wala_item = menu.findItem(R.id.name_first_menu_display);
         name_wala_item.setTitle(text);
@@ -196,8 +195,8 @@ public class HomeScreen extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
 
-        String first_name_text = getIntent().getExtras().getString("Name");
-        String text = "Hi " + first_name_text;
+      //  String first_name_text = getIntent().getExtras().getString("Name");
+     //   String text = "Hi " + first_name_text;
         ///////////////////////////////////
         // Function if You click on The Profie Item
         ///////////////////////////////////
@@ -280,6 +279,7 @@ public class HomeScreen extends AppCompatActivity {
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
                         int ls = childPosition;
+
 
                         Intent transition = new Intent(getApplicationContext(), Courses.class);
                         transition.putExtra("Item_Number", ls);

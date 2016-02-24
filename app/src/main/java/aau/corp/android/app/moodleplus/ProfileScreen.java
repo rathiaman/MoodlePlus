@@ -1,5 +1,6 @@
 package aau.corp.android.app.moodleplus;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,7 +21,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 import org.json.JSONStringer;
-
 
 ///////////////////////////////////
 // This class is for the user profile screen
@@ -51,6 +51,11 @@ public class ProfileScreen extends AppCompatActivity {
     // This function sends the to the server
     ///////////////////////////////////
     public void send_data_request( int user_id){
+
+        final ProgressDialog messageDialog = new ProgressDialog(this);
+        messageDialog.setMessage("sending the information");
+        messageDialog.show();
+
         //url for grades
         String adder1 = IPAddress.getName();
         String url="http://" + adder1 + "//users/user.json/"+String.valueOf(user_id);
@@ -61,10 +66,9 @@ public class ProfileScreen extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.e("hello1", response);
                         try {
-                            Log.e("qwerty", response.toString());
-                            //mainObject = new JSONObject(response);
+
+                            messageDialog.hide();
                             show_user_data(response);
-                            //Toast.makeText(GradeScreen.this, response, Toast.LENGTH_SHORT).show();
                         }
                         catch(Exception e){
                             Log.e("u1" , e.toString());

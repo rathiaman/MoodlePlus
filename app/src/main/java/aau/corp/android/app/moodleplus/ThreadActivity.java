@@ -1,12 +1,12 @@
 package aau.corp.android.app.moodleplus;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -16,14 +16,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,15 +31,12 @@ import org.json.JSONObject;
 
 public class ThreadActivity extends AppCompatActivity {
 
-
     private static EditText thread_title, description;
-    // String[] title_array,updated_array;
-
     ///////////////////////////////////
     // Declaring variables
     ///////////////////////////////////
     String[] title_array,updated_array;
-    Integer[] id_array,thread_no;
+    Integer[] id_array;
     String course_code;
     Button Submit;
 
@@ -52,35 +45,29 @@ public class ThreadActivity extends AppCompatActivity {
     ///////////////////////////////////
     String adder = IPAddress.getName();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread);
-
         ///////////////////////////////////
         // Defining variables with the ids
         ///////////////////////////////////
         Submit = (Button)findViewById(R.id.submit);
         thread_title = (EditText) findViewById(R.id.thread_title);
         description = (EditText) findViewById(R.id.description);
-
         ///////////////////////////////////
         // Extracting information from intent
         ///////////////////////////////////
         course_code = getIntent().getExtras().getString("course_code");
-
         ///////////////////////////////////
         // Setting the title to Threads: "Course Code"
         ///////////////////////////////////
         String title = "Threads: " + course_code.toUpperCase();
         setTitle(title);
-
         ///////////////////////////////////
         // Calling the function of send thread
         ///////////////////////////////////
         sendThread();
-
         ///////////////////////////////////
         // OnClick Listener for Submit Button
         ///////////////////////////////////
@@ -102,26 +89,27 @@ public class ThreadActivity extends AppCompatActivity {
     ///////////////////////////////////
     private void sendThread()
     {
+        final ProgressDialog messageDialog = new ProgressDialog(this);
+        messageDialog.setMessage("sending the information");
+        messageDialog.show();
+
         //url for grades
         String adder1 = IPAddress.getName();
         String url="http://" + adder1 + "/courses/course.json/"+course_code+"/threads";
-        //String url = "http://" + adder + ":8000/courses/course.json/"+course_code +"/threads";
+
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("hello1", response.toString());
-                       // Toast.makeText(ThreadActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-
+                        messageDialog.hide();
                        dowithThread(response);
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ThreadActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(LoginScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ThreadActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
@@ -138,12 +126,8 @@ public class ThreadActivity extends AppCompatActivity {
 
         try{
             mainObject = new JSONObject(response);
-            //Toast.makeText(GradeScreen.this, mainObject.toString(), Toast.LENGTH_SHORT).show();
-
             JSONArray json_array_thread_request =   mainObject.getJSONArray("course_threads");
-
             //declaring the size of the array
-
             title_array = new String[json_array_thread_request.length()];
             updated_array = new String[json_array_thread_request.length()];
             id_array = new Integer[json_array_thread_request.length()];
@@ -154,19 +138,12 @@ public class ThreadActivity extends AppCompatActivity {
                 updated_array[i] = childJSONObject.getString("updated_at");
                 id_array[i] = childJSONObject.getInt("id");
             }
-
-            /////////////
-
-//            Toast.makeText(ThreadActivity.this,"size" + title_array.length, Toast.LENGTH_SHORT ).show();
-
-            create_thread_table();
+             create_thread_table();
         }catch (JSONException e){
             e.printStackTrace();}
 
 
     }
-   // int idOfThread;
-
     ///////////////////////////////////
     // This functions create a table for the threads submitted
     ///////////////////////////////////
@@ -216,12 +193,8 @@ public class ThreadActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                   // Toast.makeText(ThreadActivity.this,"Clicked",Toast.LENGTH_SHORT).show();
-
                     Intent in = new Intent(ThreadActivity.this,Particular_thread.class);
-
                     Bundle extras = new Bundle();
-
                     extras.putInt("EXTRA_THREAD_ID",idOfThread);
                     extras.putString("EXTRA_COURSE_CODE", course_code);
                     in.putExtras(extras);
@@ -230,7 +203,6 @@ public class ThreadActivity extends AppCompatActivity {
 
                 }
             });
-
             ///////////////////////////////////
             //the textviews have to be added to the row created
             ///////////////////////////////////
@@ -245,22 +217,33 @@ public class ThreadActivity extends AppCompatActivity {
     /// This method is to submit the new thread entered
     ///////////////////////////////////
     public void submitNewThread(){
-
-
-      final String thread_title1 = thread_title.getText().toString();
-      final String description1 = description.getText().toString();
-
+        final String thread_title1 = thread_title.getText().toString();
+        final String description1 = description.getText().toString();
         String adder1 = IPAddress.getName();
         String url = "http://" + adder1 + "/threads/new.json?title=" + thread_title1 +"&description=" + description1 + "&course_code=" + course_code;
-      StringRequest request = new StringRequest(Request.Method.GET, url,
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+
               new Response.Listener<String>() {
                   @Override
                   public void onResponse(String response) {
                       Log.e("hello1", response.toString());
-                      Toast.makeText(ThreadActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                      //Toast.makeText(ThreadActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
 
                       //dialog box
+                      JSONObject mainObject ;
 
+                      try {
+                          mainObject = new JSONObject(response);
+                          String json_success = mainObject.getString("success");
+                          if (json_success == "true")
+                          {Toast.makeText(ThreadActivity.this, "Thread Posted. Reload ", Toast.LENGTH_SHORT).show();}
+                          else
+                          {Toast.makeText(ThreadActivity.this, "Unable to Post Thread ", Toast.LENGTH_SHORT).show();}
+
+
+                      } catch (JSONException e) {
+                          e.printStackTrace();
+                      }
                   }
               },
               new Response.ErrorListener() {
@@ -275,9 +258,4 @@ public class ThreadActivity extends AppCompatActivity {
       MySingleton.getInstance(this).addToRequestQueue(request);
 
   }
-
-
-
-
-
 }

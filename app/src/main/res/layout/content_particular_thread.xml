@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:id="@+id/name"
+        android:id="@+id/theady_user_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -38,8 +38,8 @@
         android:text="Title"
         android:id="@+id/thready_title"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/name"
-        android:layout_toEndOf="@+id/name"
+        android:layout_toRightOf="@+id/theady_user_name"
+        android:layout_toEndOf="@+id/theady_user_name"
         android:layout_margin="10dp"
         android:textSize="25sp" />
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Created at"
             android:id="@+id/textView3"
-            android:layout_below="@+id/name"
+            android:layout_below="@+id/theady_user_name"
             android:layout_alignLeft="@+id/created"
             android:layout_alignStart="@+id/created"
             android:layout_marginTop="1dp" />
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:text="created on"
             android:id="@+id/created"
-            android:layout_below="@+id/name"
+            android:layout_below="@+id/theady_user_name"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textSize="15dp"
